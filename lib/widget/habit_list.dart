@@ -34,7 +34,9 @@ class HabitList extends StatelessWidget {
                   icon: !habit[index].isCompleted
                       ? Container()
                       : const Icon(Icons.check),
-                  onPressed: () {},
+                  onPressed: () {
+                    
+                  },
                   style: FilledButton.styleFrom(
                     backgroundColor: !habit[index].isCompleted
                         ? Theme.of(context).colorScheme.secondaryContainer

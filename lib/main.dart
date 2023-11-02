@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habitapp/pages/addhabit.page.dart';
 import 'package:habitapp/template.page.dart';
 
 void main() {
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.light,
           useMaterial3: true,
           colorSchemeSeed: Colors.purpleAccent),
-      home: const HabitPageTemplate(),
+      home: const AddHabitPage(),
     );
   }
 }

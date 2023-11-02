@@ -18,7 +18,7 @@ class TodaysHabitPage extends StatelessWidget {
           isCompleted: false),
       Habit(
           habitName: "Study",
-          days: [Days.mon, Days.sat, Days.thu],
+          days: [Days.mon, Days.sat, Days.thu, Days.fri],
           isCompleted: false),
       Habit(
           habitName: "Study",
