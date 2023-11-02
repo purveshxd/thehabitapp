@@ -1,8 +1,7 @@
 // import 'dart:math';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:intl/date_time_patterns.dart';
+import 'package:habitapp/constants/components.dart';
 import 'package:intl/intl.dart';
 
 class WeeklyCalendar extends StatelessWidget {
@@ -10,12 +9,7 @@ class WeeklyCalendar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // dateFormatter
-    String dateFormatter(DateTime date) {
-      // final date = DateTime.now();
-      final formattedDate = DateFormat('dd-E').format(date);
-      return formattedDate;
-    }
+    
 
 // generates list of days in week
     List giveDateRange() {
@@ -27,12 +21,7 @@ class WeeklyCalendar extends StatelessWidget {
       return weekList;
     }
 
-    bool isToday(DateTime date) {
-      return (dateFormatter(date) ==
-          dateFormatter(
-            DateTime.now(),
-          ));
-    }
+  
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

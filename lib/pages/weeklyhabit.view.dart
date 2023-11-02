@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:habitapp/widget/daily_habit_marker_widget.dart';
 import 'package:habitapp/widget/habit_list.dart';
 import 'package:habitapp/widget/weekly_calendar.dart';
 
@@ -32,7 +31,7 @@ class WeeklyHabitPage extends StatelessWidget {
           const SizedBox(height: 15),
           const WeeklyCalendar(),
           const SizedBox(height: 15),
-          const HabitList(),
+          // const HabitList(),
         ],
       ),
     );
