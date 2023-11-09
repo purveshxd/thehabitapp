@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habitapp/constants/components.dart';
-import 'package:habitapp/habit.controller.dart';
+
 import 'package:habitapp/models/habit.model.dart';
 import 'package:habitapp/widget/habit_tile.dart';
 
