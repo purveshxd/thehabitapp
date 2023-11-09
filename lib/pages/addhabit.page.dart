@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:habitapp/controller/addhabit.controller.dart';
 import 'package:habitapp/models/habit.model.dart';
+import 'package:habitapp/models/user_habit.model.dart';
 import 'package:habitapp/widget/days_select_widget.dart';
 import 'package:habitapp/widget/submit_button.dart';
 import 'package:habitapp/widget/text_field.widget.dart';
-
-// final selectedDaysProvider = StateProvider<List<Days>>((ref) => [Days.mon]);
-final switchValueProvider = StateProvider((ref) => false);
 
 class AddHabitPage extends ConsumerStatefulWidget {
   const AddHabitPage({super.key});
@@ -79,7 +78,13 @@ class _AddHabitPageState extends ConsumerState<AddHabitPage> {
             padding: const EdgeInsets.all(12.0),
             child: SubmitButton(
               onPressed: () {
-                // HabitList().addHabit(Habit(habitName: habitNameController.text, days: [days]))
+                ref.watch(habitListProvider.notifier).update((state) {
+                  state.add(Habit(
+                      habitName: habitNameController.text, days: selectedDays));
+                  return state;
+                });
+
+                Navigator.pop(context);
               },
             ),
           )

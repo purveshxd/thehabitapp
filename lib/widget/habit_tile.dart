@@ -4,11 +4,13 @@ class HabitTile extends StatelessWidget {
   // final List<Habit> habit;
   final bool isCompleted;
   final String habitName;
+  final void Function()? onPressed;
   const HabitTile(
       {super.key,
       // required this.habit,
       required this.isCompleted,
-      required this.habitName});
+      required this.habitName,
+      required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,7 @@ class HabitTile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: FilledButton.tonalIcon(
         icon: !isCompleted ? Container() : const Icon(Icons.check),
-        onPressed: () {},
+        onPressed: onPressed,
         style: FilledButton.styleFrom(
           backgroundColor: !isCompleted
               ? Theme.of(context).colorScheme.secondaryContainer

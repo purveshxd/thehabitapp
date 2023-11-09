@@ -12,15 +12,17 @@ class Habit {
     required this.days,
     this.isCompleted = false,
   });
-  final DateTime dateCreated = DateTime.now();
+  // final DateTime dateCreated = DateTime.now();
 
   Habit copyWith({
     String? habitName,
     List<Days>? days,
+    bool? isCompleted,
   }) {
     return Habit(
       habitName: habitName ?? this.habitName,
       days: days ?? this.days,
+      isCompleted: isCompleted ?? false,
     );
   }
 

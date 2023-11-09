@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitapp/homepage.dart';
 import 'package:habitapp/pages/addhabit.page.dart';
+import 'package:habitapp/pages/todayshabit.page.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.light,
           useMaterial3: true,
           colorSchemeSeed: Colors.purpleAccent),
-      home: AddHabitPage(),
+      home: const TodaysHabitPage(),
     );
   }
 }
