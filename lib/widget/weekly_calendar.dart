@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:habitapp/constants/components.dart';
-import 'package:intl/intl.dart';
 
 class WeeklyCalendar extends StatelessWidget {
   const WeeklyCalendar({super.key});

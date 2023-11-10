@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitapp/models/habit.model.dart';
-import 'package:habitapp/pages/addhabit.page.dart';
 
 class DaysSelectWidget extends StatefulWidget {
   final List<Days> selectedDays;
@@ -46,8 +44,6 @@ class _DaysSelectWidgetState extends State<DaysSelectWidget> {
           }
         }
       });
-
-      print(widget.selectedDays);
     }
 
     return Padding(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:habitapp/constants/components.dart';
 import 'package:habitapp/controller/habit.controller.dart';
 
 import 'package:habitapp/models/habit.model.dart';

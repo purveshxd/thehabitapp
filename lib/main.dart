@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:habitapp/homepage.dart';
-import 'package:habitapp/pages/addhabit.page.dart';
 import 'package:habitapp/pages/todayshabit.page.dart';
 
 void main() {
@@ -14,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.system,
       darkTheme: ThemeData(
         brightness: Brightness.dark,
         colorSchemeSeed: Colors.deepPurpleAccent,

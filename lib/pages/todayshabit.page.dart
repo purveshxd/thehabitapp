@@ -1,4 +1,3 @@
-import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitapp/controller/habit.controller.dart';
@@ -14,34 +13,31 @@ class TodaysHabitPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final themeContext = Theme.of(context).colorScheme;
-    final confettiController = ConfettiController();
+    // theme context for color
+    final colorthemeContext = Theme.of(context).colorScheme;
+    // theme context for text
+    final textthemeContext = Theme.of(context).textTheme;
+
+    // final confettiController = ConfettiController();
+
 //  tells the current brightness
     Color checkBrightness(Color darkColor, Color lightColor) {
-      return Theme.of(context).brightness == Brightness.dark
+      return colorthemeContext.brightness == Brightness.dark
           ? darkColor
           : lightColor;
     }
 
     final habitsTemp = ref.read(habitListProvider);
+
+    // habitController
     final habitController = HabitController(habitList: habitsTemp);
+
     final isTodaysHabit = habitController.todaysHabitList(habitsTemp);
-    bool allHabitDone() {
-      List<bool> doneHabitList = [];
-      for (var habit in habitsTemp) {
-        doneHabitList
-            .add(habitController.isTodayHabit(habitsTemp.indexOf(habit)));
-      }
-      if (doneHabitList.contains(false)) {
-        return true;
-      } else {
-        return false;
-      }
-    }
 
     return Scaffold(
-      backgroundColor: checkBrightness(
-          Colors.black, Theme.of(context).colorScheme.background),
+      // backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor:
+          checkBrightness(Colors.black, colorthemeContext.background),
       extendBody: false,
       extendBodyBehindAppBar: false,
       appBar: AppBar(
@@ -59,7 +55,7 @@ class TodaysHabitPage extends ConsumerWidget {
             },
             icon: Icon(
               Icons.add_rounded,
-              color: Theme.of(context).colorScheme.onBackground,
+              color: colorthemeContext.onBackground,
             ),
           ),
         ],
@@ -73,9 +69,7 @@ class TodaysHabitPage extends ConsumerWidget {
                   children: [
                     DailyProgressWidget(habit: habitsTemp),
                     const SizedBox(height: 15),
-                    HabitList(
-                        habitList: ref.watch(habitListProvider),
-                        confettiController: confettiController),
+                    HabitList(habitList: ref.watch(habitListProvider)),
                   ],
                 )
               : Center(
@@ -85,18 +79,17 @@ class TodaysHabitPage extends ConsumerWidget {
                       Icon(
                         Icons.list_rounded,
                         size: 80,
-                        color: Theme.of(context).colorScheme.onBackground,
+                        color: colorthemeContext.onBackground,
                       ),
                       Text(
                         "No habit for today",
-                        style: Theme.of(context).textTheme.displayMedium!.merge(
-                              TextStyle(
-                                color:
-                                    Theme.of(context).colorScheme.onBackground,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 28,
-                              ),
-                            ),
+                        style: textthemeContext.displayMedium!.merge(
+                          TextStyle(
+                            color: colorthemeContext.onBackground,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 28,
+                          ),
+                        ),
                       ),
                       const SizedBox(
                         height: 10,

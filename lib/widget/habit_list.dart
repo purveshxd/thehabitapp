@@ -1,19 +1,18 @@
-import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:habitapp/constants/components.dart';
 import 'package:habitapp/controller/habit.controller.dart';
 import 'package:habitapp/models/habit.model.dart';
 import 'package:habitapp/models/user_habit.model.dart';
 import 'package:habitapp/widget/habit_tile.dart';
 
+// to check todays habit complete
 final todaysHabitCompleteProvider = StateProvider((ref) => false);
 
 class HabitList extends ConsumerWidget {
   final List<Habit> habitList;
-  final ConfettiController confettiController;
-  HabitList({
-    required this.confettiController,
+  // final ConfettiController confettiController;
+  const HabitList({
+    // required this.confettiController,
     super.key,
     required this.habitList,
   });
@@ -51,13 +50,15 @@ class HabitList extends ConsumerWidget {
     }
 
     return Expanded(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
+      child: ListView(
+        physics: const BouncingScrollPhysics(), shrinkWrap: true,
+        // mainAxisAlignment: MainAxisAlignment.start,
+        // mainAxisSize: MainAxisSize.min,
         children: [
           // for habit remaining for today
 
           ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: habitList.length,
               itemBuilder: (context, index) {
@@ -129,6 +130,7 @@ class HabitList extends ConsumerWidget {
             ),
           ),
           ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: habitList.length,
               itemBuilder: (context, index) {

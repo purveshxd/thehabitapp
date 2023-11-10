@@ -67,7 +67,7 @@ class _AddHabitPageState extends ConsumerState<AddHabitPage> {
               ],
             ),
           ),
-
+// weekday selection widget
           DaysSelectWidget(
             selectedDays: selectedDays,
             switchValue: ref.watch(switchValueProvider),
@@ -85,6 +85,9 @@ class _AddHabitPageState extends ConsumerState<AddHabitPage> {
                 });
 
                 Navigator.pop(context);
+                ref
+                    .watch(switchValueProvider.notifier)
+                    .update((state) => false);
               },
             ),
           )
