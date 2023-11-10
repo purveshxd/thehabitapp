@@ -25,7 +25,19 @@ class TodaysHabitPage extends ConsumerWidget {
 
     final habitsTemp = ref.read(habitListProvider);
     final habitController = HabitController(habitList: habitsTemp);
-    final isTodaysHabit = habitController.isTodaysHabit(habitsTemp);
+    final isTodaysHabit = habitController.todaysHabitList(habitsTemp);
+    bool allHabitDone() {
+      List<bool> doneHabitList = [];
+      for (var habit in habitsTemp) {
+        doneHabitList
+            .add(habitController.isTodayHabit(habitsTemp.indexOf(habit)));
+      }
+      if (doneHabitList.contains(false)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
 
     return Scaffold(
       backgroundColor: checkBrightness(
@@ -62,7 +74,7 @@ class TodaysHabitPage extends ConsumerWidget {
                     DailyProgressWidget(habit: habitsTemp),
                     const SizedBox(height: 15),
                     HabitList(
-                        habit: ref.watch(habitListProvider),
+                        habitList: ref.watch(habitListProvider),
                         confettiController: confettiController),
                   ],
                 )

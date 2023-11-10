@@ -2,17 +2,20 @@ import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitapp/constants/components.dart';
+import 'package:habitapp/controller/habit.controller.dart';
 import 'package:habitapp/models/habit.model.dart';
 import 'package:habitapp/models/user_habit.model.dart';
 import 'package:habitapp/widget/habit_tile.dart';
 
+final todaysHabitCompleteProvider = StateProvider((ref) => false);
+
 class HabitList extends ConsumerWidget {
-  final List<Habit> habit;
+  final List<Habit> habitList;
   final ConfettiController confettiController;
-  const HabitList({
+  HabitList({
     required this.confettiController,
     super.key,
-    required this.habit,
+    required this.habitList,
   });
 
   @override
@@ -30,6 +33,8 @@ class HabitList extends ConsumerWidget {
     //   );
     // }
 
+    final habitController = HabitController(habitList: habitList);
+
     markHabitDone(Habit markHabit) {
       ref.watch(habitListProvider.notifier).update((state) {
         return state = [
@@ -45,59 +50,102 @@ class HabitList extends ConsumerWidget {
       });
     }
 
-    // is habit set for today
-    bool isTodayHabit(int index) {
-      bool temp = false;
-      temp = habit.elementAt(index).days.map((e) => e.name).toList().contains(
-            dateFormatter(DateTime.now()).split('-')[1].toLowerCase(),
-          );
-      return temp;
-    }
-
     return Expanded(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           // for habit remaining for today
+
           ListView.builder(
               shrinkWrap: true,
-              itemCount: habit.length,
+              itemCount: habitList.length,
               itemBuilder: (context, index) {
-                if (isTodayHabit(index) && !habit[index].isCompleted) {
+                if (HabitController(habitList: habitList).isTodayHabit(index) &&
+                    !habitList[index].isCompleted) {
                   // print(habit[index]);
                   return HabitTile(
                     onPressed: () {
                       // confettiWorking();
 
-                      markHabitDone(habit[index]);
+                      markHabitDone(habitList[index]);
                     },
-                    isCompleted: habit[index].isCompleted,
-                    habitName: habit[index].habitName,
+                    isCompleted: habitList[index].isCompleted,
+                    habitName: habitList[index].habitName,
                   );
                 } else {
                   return const SizedBox();
                 }
               }),
           // completed habit for today
-        
+
+          Visibility(
+            visible: habitController.completedHabit(habitList) != 0,
+            child: Column(
+              children: [
+                Visibility(
+                  visible: habitController.completedHabit(habitList) ==
+                      habitController.totalHabit(habitList),
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        "Congrats🥳 You completed todays habit",
+                        style: Theme.of(context).textTheme.displayMedium!.merge(
+                              TextStyle(
+                                color:
+                                    Theme.of(context).colorScheme.onBackground,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 28,
+                              ),
+                            ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  ),
+                ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Text(
+                        "Done",
+                        style: Theme.of(context).textTheme.labelLarge!.merge(
+                            TextStyle(
+                                color: Theme.of(context).colorScheme.tertiary)),
+                      ),
+                    ),
+                    Flexible(
+                        child: Divider(
+                            thickness: 2,
+                            color: Theme.of(context).colorScheme.tertiary)),
+                  ],
+                ),
+              ],
+            ),
+          ),
           ListView.builder(
               shrinkWrap: true,
-              itemCount: habit.length,
+              itemCount: habitList.length,
               itemBuilder: (context, index) {
                 // print(habit[index]);
-                if (isTodayHabit(index) && habit[index].isCompleted) {
+                if (HabitController(habitList: habitList).isTodayHabit(index) &&
+                    habitList[index].isCompleted) {
                   return HabitTile(
                     onPressed: () {
-                      markHabitDone(habit[index]);
+                      markHabitDone(habitList[index]);
                     },
-                    isCompleted: habit[index].isCompleted,
-                    habitName: habit[index].habitName,
+                    isCompleted: habitList[index].isCompleted,
+                    habitName: habitList[index].habitName,
                   );
                 } else {
                   return Container();
                 }
-              }),
+              })
         ],
       ),
     );

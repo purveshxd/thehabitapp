@@ -58,13 +58,22 @@ class _DaysSelectWidgetState extends State<DaysSelectWidget> {
               crossAxisSpacing: 10, childAspectRatio: 1, crossAxisCount: 7),
           itemCount: Days.values.length,
           itemBuilder: (context, index) {
-            return MaterialButton(
-              color: isSelected(index)
-                  ? Theme.of(context).colorScheme.primaryContainer
-                  : Theme.of(context).colorScheme.secondaryContainer,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8)),
+            return OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                side: isSelected(index)
+                    ? BorderSide(
+                        color: Theme.of(context).colorScheme.outline, width: 2)
+                    : BorderSide.none,
+                padding: const EdgeInsets.all(0),
+                backgroundColor: isSelected(index)
+                    ? Theme.of(context).colorScheme.primaryContainer
+                    : Theme.of(context).colorScheme.secondaryContainer,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8)),
+              ),
+              // elevation: 0,
               // fillColor: Theme.of(context).colorScheme.secondaryContainer,
+
               onPressed: () {
                 selectDays(Days.values[index]);
               },

@@ -17,13 +17,13 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.dark,
       darkTheme: ThemeData(
         brightness: Brightness.dark,
-        colorSchemeSeed: Colors.amberAccent,
+        colorSchemeSeed: Colors.deepPurpleAccent,
         useMaterial3: true,
       ),
       theme: ThemeData(
           brightness: Brightness.light,
           useMaterial3: true,
-          colorSchemeSeed: Colors.purpleAccent),
+          colorSchemeSeed: Colors.deepPurpleAccent),
       home: const TodaysHabitPage(),
     );
   }
