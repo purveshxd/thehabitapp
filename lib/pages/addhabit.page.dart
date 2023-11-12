@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitapp/controller/addhabit.controller.dart';
+import 'package:habitapp/localStorage/local_store.dart';
 import 'package:habitapp/models/habit.model.dart';
 import 'package:habitapp/models/user_habit.model.dart';
 import 'package:habitapp/widget/days_select_widget.dart';
@@ -26,10 +27,13 @@ class _AddHabitPageState extends ConsumerState<AddHabitPage> {
     // List<Days> selectedDays = ref.watch(selectedDaysProvider);
     return Scaffold(
       appBar: AppBar(
-          title: const Text(
-        "Create habit",
-        style: TextStyle(fontWeight: FontWeight.bold),
-      )),
+        title: const Text(
+          "Create habit",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
       body: ListView(
         children: [
           // textfield to give habit name
@@ -45,7 +49,10 @@ class _AddHabitPageState extends ConsumerState<AddHabitPage> {
               children: [
                 const Text(
                   "Select Days",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
                 ),
 
                 // toggle all days selection
@@ -67,6 +74,7 @@ class _AddHabitPageState extends ConsumerState<AddHabitPage> {
               ],
             ),
           ),
+
 // weekday selection widget
           DaysSelectWidget(
             selectedDays: selectedDays,
@@ -78,12 +86,14 @@ class _AddHabitPageState extends ConsumerState<AddHabitPage> {
             padding: const EdgeInsets.all(12.0),
             child: SubmitButton(
               onPressed: () {
-                ref.watch(habitListProvider.notifier).update((state) {
-                  state.add(Habit(
-                      habitName: habitNameController.text, days: selectedDays));
-                  return state;
-                });
+                // ref.watch(habitListProvider.notifier).update((state) {
+                //   state.add(Habit(
+                //       habitName: habitNameController.text, days: selectedDays));
+                //   return state;
+                // });
 
+                ref.watch(habitStateNotifierProvider.notifier).addHabit(Habit(
+                    habitName: habitNameController.text, days: selectedDays));
                 Navigator.pop(context);
                 ref
                     .watch(switchValueProvider.notifier)

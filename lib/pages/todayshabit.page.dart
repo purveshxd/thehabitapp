@@ -27,7 +27,8 @@ class TodaysHabitPage extends ConsumerWidget {
           : lightColor;
     }
 
-    final habitsTemp = ref.read(habitListProvider);
+    // final habitsTemp = ref.read(habitListProvider);
+    final habitsTemp = ref.watch(habitStateNotifierProvider);
 
     // habitController
     final habitController = HabitController(habitList: habitsTemp);
@@ -69,7 +70,7 @@ class TodaysHabitPage extends ConsumerWidget {
                   children: [
                     DailyProgressWidget(habit: habitsTemp),
                     const SizedBox(height: 15),
-                    HabitList(habitList: ref.watch(habitListProvider)),
+                    HabitList(habitList: ref.watch(habitStateNotifierProvider)),
                   ],
                 )
               : Center(
@@ -95,7 +96,12 @@ class TodaysHabitPage extends ConsumerWidget {
                         height: 10,
                       ),
                       FilledButton.tonal(
-                          onPressed: () {}, child: const Text("Create Habit"))
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const AddHabitPage(),
+                            ));
+                          },
+                          child: const Text("Create Habit"))
                     ],
                   ),
                 )),

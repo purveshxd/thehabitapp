@@ -4,6 +4,7 @@ import 'package:habitapp/controller/habit.controller.dart';
 import 'package:habitapp/models/habit.model.dart';
 import 'package:habitapp/models/user_habit.model.dart';
 import 'package:habitapp/widget/habit_tile.dart';
+import 'package:uuid/uuid.dart';
 
 // to check todays habit complete
 final todaysHabitCompleteProvider = StateProvider((ref) => false);
@@ -35,18 +36,18 @@ class HabitList extends ConsumerWidget {
     final habitController = HabitController(habitList: habitList);
 
     markHabitDone(Habit markHabit) {
-      ref.watch(habitListProvider.notifier).update((state) {
-        return state = [
-          for (final habit in state)
-            if (habit == markHabit)
-              Habit(
-                  habitName: markHabit.habitName,
-                  days: markHabit.days,
-                  isCompleted: !habit.isCompleted)
-            else
-              habit,
-        ];
-      });
+      // ref.watch(habitStateNotifierProvider.notifier).update((state) {
+      //   return state = [
+      //     for (final habit in state)
+      //       if (habit == markHabit)
+      //         Habit(
+      //             habitName: markHabit.habitName,
+      //             days: markHabit.days,
+      //             isCompleted: !habit.isCompleted)
+      //       else
+      //         habit,
+      //   ];
+      // });
     }
 
     return Expanded(
