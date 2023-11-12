@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitapp/controller/addhabit.controller.dart';
-import 'package:habitapp/localStorage/local_store.dart';
 import 'package:habitapp/models/habit.model.dart';
 import 'package:habitapp/models/user_habit.model.dart';
 import 'package:habitapp/widget/days_select_widget.dart';

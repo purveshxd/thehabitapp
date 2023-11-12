@@ -22,14 +22,14 @@ class HabitStateNotifier extends StateNotifier<List<Habit>> {
     loadHabits();
   }
 
-  toggleHabitsComplete() {
-    //TODO: add habit toggle code
+  toggleHabitsComplete(String id) {
+    _localStorage.toggleHabitComplete(id);
     loadHabits();
   }
 
-  deleteHabit() {
-    loadHabits();
-  }
+  // deleteHabit() {
+  //   loadHabits();
+  // }
 }
 
 final habitStateNotifierProvider =
