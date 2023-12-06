@@ -11,7 +11,7 @@ void main() async {
   Hive.registerAdapter(HabitAdapter());
   Hive.registerAdapter(DaysAdapter());
   await Hive.openBox('habitStorage');
-  LocalStorage();
+
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -22,12 +22,20 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
+final LocalStorage _localStorage = LocalStorage();
+
 class _MyAppState extends State<MyApp> {
-  @override
-  void initState() {
-     LocalStorage().getHabitList();
-    super.initState();
-  }
+  // final _box = Hive.box('habitStorage');
+
+  // @override
+  // void initState() {
+  //   if (_box.get('HABITS') == null) {
+  //     _localStorage.createInitialData();
+  //   } else {
+  //     _localStorage.getHabitList();
+  //   }
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +43,10 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
       darkTheme: ThemeData(
+        pageTransitionsTheme: const PageTransitionsTheme(
+            builders: {TargetPlatform.android: ZoomPageTransitionsBuilder()}),
         brightness: Brightness.dark,
-        colorSchemeSeed: Colors.deepPurpleAccent,
+        colorSchemeSeed: Colors.lime,
         useMaterial3: true,
       ),
       theme: ThemeData(

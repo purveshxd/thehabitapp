@@ -20,6 +20,7 @@ class HabitAdapter extends TypeAdapter<Habit> {
       habitName: fields[0] as String,
       days: (fields[1] as List).cast<Days>(),
       isCompleted: fields[2] as bool,
+      id: fields[3] as String?,
     );
   }
 

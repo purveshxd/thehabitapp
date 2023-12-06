@@ -2,59 +2,71 @@ import 'package:habitapp/models/habit.model.dart';
 import 'package:hive/hive.dart';
 
 class LocalStorage {
-  late List<Habit> habitList;
-  late Box _box;
-
-  LocalStorage() {
-    _box = Hive.box('habitStorage');
-    loadData();
-  }
-
-  // List<Habit> createInitialData() {
-  //   return habitList = [
-  //     Habit(
-  //         habitName: "Study",
-  //         days: [Days.wed, Days.sat, Days.tue],
-  //         isCompleted: true),
-  //   ];
+  List<Habit> habitList = [];
+  final box = Hive.box('habitStorage');
+  // LocalStorage() {
+  //   getHabitList();
   // }
 
+  void loadHabitList() {
+    if (box.get('HABITS') == null) {
+      createInitialData();
+    } else {
+      getHabitList();
+    }
+  }
+
+  void createInitialData() {
+    habitList = [
+      Habit(
+        habitName: "Thi is the first habit",
+        days: [Days.fri, Days.mon, Days.sat, Days.sat, Days.wed],
+        isCompleted: false,
+      ),
+      Habit(
+        habitName: "Thi is the second habit",
+        days: Days.values,
+        isCompleted: false,
+      ),
+    ];
+    print("initial == ${habitList}");
+  }
+
 // get the habit list from localStorage
-  List<Habit> getHabitList() {
-    final habits = _box.get('HABITS');
-    return (habits as List).map((e) => e as Habit).toList();
-    // return habitList;
+  void getHabitList() {
+    final habits = box.get('HABITS');
+
+    final habitListTemp = (habits as List).map((e) => e as Habit).toList();
+    habitList = habitListTemp;
+    print("get == ${habitList}");
   }
 
 // add habit to the local storage
   addHabit(Habit habit) {
-    habitList = getHabitList();
     habitList.add(habit);
-    _box.put("HABITS", habitList);
+    box.put("HABITS", habitList);
+    print(habit.id);
   }
 
-  loadData() {
-    final habitList = _box.get('HABITS');
+  deleteHabit(String id) {
+    habitList.removeWhere((element) => element.id == id);
+    box.put('HABITS', habitList);
   }
-
-  // deleteHabit(Habit delHabit) {
-  //   habitList = getHabitList();
-  //   habitList.remove(delHabit);
-  // }
 
   toggleHabitComplete(String id) {
-    final habitList = getHabitList();
+    // final habitList = getHabitList();
+    // print(id);
+
     final index = habitList.indexWhere((element) => element.id == id);
-    print(habitList[index].toString());
+    final habit = habitList.firstWhere((element) => element.id == id);
+
+    // print("OLD ID${habit.id}");
     if (index != -1) {
-      final habit = habitList[index];
-      final updatedHabit = Habit(
-          habitName: habit.habitName,
-          days: habit.days,
-          isCompleted: !habit.isCompleted);
+      final updatedHabit = habit.copyWith(isCompleted: !habit.isCompleted);
+      // print("NEw ID${updatedHabit.id}");
       habitList.removeAt(index);
       habitList.insert(index, updatedHabit);
-      _box.put("HABITS", habitList);
+      box.put("HABITS", habitList);
     }
   }
 }

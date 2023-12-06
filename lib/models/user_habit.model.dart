@@ -13,8 +13,10 @@ class HabitStateNotifier extends StateNotifier<List<Habit>> {
   }
 
   loadHabits() {
-    final habits = _localStorage.getHabitList();
-    state = [...habits];
+    _localStorage.loadHabitList();
+    final habitList = _localStorage.habitList;
+    print(habitList);
+    state = [...habitList];
   }
 
   addHabit(Habit habit) {
@@ -27,9 +29,10 @@ class HabitStateNotifier extends StateNotifier<List<Habit>> {
     loadHabits();
   }
 
-  // deleteHabit() {
-  //   loadHabits();
-  // }
+  deleteHabit(String id) {
+    _localStorage.deleteHabit(id);
+    loadHabits();
+  }
 }
 
 final habitStateNotifierProvider =

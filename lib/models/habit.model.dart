@@ -18,37 +18,42 @@ class Habit {
   @HiveField(2)
   final bool isCompleted;
   @HiveField(3)
-  final String id = uuid.v4();
+  final String id;
+
   Habit({
     required this.habitName,
     required this.days,
     this.isCompleted = false,
-  });
+    String? id,
+  }) : id = id ?? uuid.v4();
   // final DateTime dateCreated = DateTime.now();
 
   Habit copyWith({
     String? habitName,
     List<Days>? days,
     bool? isCompleted,
+    String? id,
   }) {
     return Habit(
-      habitName: habitName ?? this.habitName,
-      days: days ?? this.days,
-      isCompleted: isCompleted ?? false,
-    );
+        habitName: habitName ?? this.habitName,
+        days: days ?? this.days,
+        isCompleted: isCompleted ?? this.isCompleted,
+        id: this.id);
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'habitName': habitName,
       'days': days.map((x) => x.name).toList(),
+      'isCompleted': isCompleted,
     };
   }
 
   factory Habit.fromMap(Map<String, dynamic> map) {
     return Habit(
       habitName: map['habitName'] as String,
-      days: List<Days>.of(map['days']),
+      days: List<Days>.from(map['days'] as List<Days>),
+      isCompleted: map['isCompleted'] as bool,
     );
   }
 
@@ -58,17 +63,21 @@ class Habit {
       Habit.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() => 'Habit(habitName: $habitName, days: $days)';
+  String toString() {
+    return 'Habit(habitName: $habitName, days: $days, isCompleted: $isCompleted, id: $id)';
+  }
 
   @override
   bool operator ==(covariant Habit other) {
     if (identical(this, other)) return true;
 
-    return other.habitName == habitName && listEquals(other.days, days);
+    return other.habitName == habitName &&
+        listEquals(other.days, days) &&
+        other.isCompleted == isCompleted;
   }
 
   @override
-  int get hashCode => habitName.hashCode ^ days.hashCode;
+  int get hashCode => habitName.hashCode ^ days.hashCode ^ isCompleted.hashCode;
 }
 
 @HiveType(typeId: 2)

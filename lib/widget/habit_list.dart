@@ -57,13 +57,12 @@ class HabitList extends ConsumerWidget {
                     !habitList[index].isCompleted) {
                   // print(habit[index]);
                   return HabitTile(
-                    onPressed: () {
+                    toggleControl: () {
                       // confettiWorking();
 
                       markHabitDone(habitList[index]);
                     },
-                    isCompleted: habitList[index].isCompleted,
-                    habitName: habitList[index].habitName,
+                    habit: habitList[index],
                   );
                 } else {
                   return const SizedBox();
@@ -129,11 +128,10 @@ class HabitList extends ConsumerWidget {
                 if (HabitController(habitList: habitList).isTodayHabit(index) &&
                     habitList[index].isCompleted) {
                   return HabitTile(
-                    onPressed: () {
+                    toggleControl: () {
                       markHabitDone(habitList[index]);
                     },
-                    isCompleted: habitList[index].isCompleted,
-                    habitName: habitList[index].habitName,
+                    habit: habitList[index],
                   );
                 } else {
                   return Container();
