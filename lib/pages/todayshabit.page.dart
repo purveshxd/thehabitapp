@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:habitapp/constants/constants.dart';
 import 'package:habitapp/controller/habit.controller.dart';
 import 'package:habitapp/models/user_habit.model.dart';
 import 'package:habitapp/pages/addhabit.page.dart';
+import 'package:habitapp/style/style.controller.dart';
 import 'package:habitapp/widget/daily_habit_marker_widget.dart';
 import 'package:habitapp/widget/habit_list.dart';
 
@@ -14,16 +14,11 @@ class TodaysHabitPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // theme context for color
-    final colorthemeContext = Theme.of(context).colorScheme;
-    // theme context for text
-    final textthemeContext = Theme.of(context).textTheme;
-
     // final confettiController = ConfettiController();
 
 //  tells the current brightness
     Color checkBrightness(Color darkColor, Color lightColor) {
-      return colorthemeContext.brightness == Brightness.dark
+      return colorthemeContext(context).brightness == Brightness.dark
           ? darkColor
           : lightColor;
     }
@@ -35,117 +30,46 @@ class TodaysHabitPage extends ConsumerWidget {
     final habitController = HabitController(habitList: habitsTemp);
 
     final isTodaysHabit = habitController.todaysHabitList(habitsTemp);
-
-    return Scaffold(
-        drawer: NavigationDrawer(children: [
-          Column(
+    return isTodaysHabit.isNotEmpty
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.account_circle_rounded,
-                  size: MediaQuery.of(context).size.width / 3,
-                ),
-              ),
+              DailyProgressWidget(habit: habitsTemp),
+              const SizedBox(height: 15),
+              HabitList(habitList: ref.watch(habitStateNotifierProvider)),
             ],
-          ),
-          for (List drawerItem in Constants.drawerList)
-            Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: ListTile(
-                title: Text(drawerItem[0]),
-                leading: drawerItem[1],
-                selected: true,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
+          )
+        : Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.list_rounded,
+                  size: 80,
+                  color: colorthemeContext(context).onBackground,
                 ),
-                selectedTileColor: colorthemeContext.secondaryContainer,
-              ),
-            ),
-        ]),
-        backgroundColor:
-            checkBrightness(Colors.black, colorthemeContext.background),
-        extendBody: false,
-        extendBodyBehindAppBar: false,
-        appBar: AppBar(
-          title: const Text(
-            "h-bit",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          actions: [
-            IconButton(
-              iconSize: MediaQuery.of(context).size.shortestSide / 14,
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const AddHabitPage(),
-                ));
-              },
-              icon: Icon(
-                Icons.add_rounded,
-                color: colorthemeContext.onBackground,
-              ),
-            ),
-          ],
-          forceMaterialTransparency: true,
-        ),
-        body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18.0),
-            child: isTodaysHabit.isNotEmpty
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      DailyProgressWidget(habit: habitsTemp),
-                      const SizedBox(height: 15),
-                      HabitList(
-                          habitList: ref.watch(habitStateNotifierProvider)),
-                    ],
-                  )
-                : Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.list_rounded,
-                          size: 80,
-                          color: colorthemeContext.onBackground,
+                Text(
+                  "No habit for today",
+                  style: textthemeContext(context).displayMedium!.merge(
+                        TextStyle(
+                          color: colorthemeContext(context).onBackground,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 28,
                         ),
-                        Text(
-                          "No habit for today",
-                          style: textthemeContext.displayMedium!.merge(
-                            TextStyle(
-                              color: colorthemeContext.onBackground,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 28,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        FilledButton.tonal(
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const AddHabitPage(),
-                              ));
-                            },
-                            child: const Text("Create Habit"))
-                      ],
-                    ),
-                  )),
-        floatingActionButton: FloatingActionButton.large(
-          backgroundColor: colorthemeContext.secondaryContainer,
-          onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const AddHabitPage(),
-            ));
-          },
-          child: Icon(
-            Icons.add_rounded,
-            color: colorthemeContext.onSecondaryContainer,
-            size: MediaQuery.of(context).size.shortestSide / 14,
-          ),
-        ));
+                      ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                FilledButton.tonal(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const AddHabitPage(),
+                      ));
+                    },
+                    child: const Text("Create Habit"))
+              ],
+            ),
+          );
   }
 }

@@ -29,7 +29,13 @@ class LocalStorage {
         isCompleted: false,
       ),
     ];
+    box.put("dateJoined", DateTime.now());
     print("initial == ${habitList}");
+  }
+
+  dynamic getDateJoined() {
+    final dateJoined = box.get('dateJoined');
+    return dateJoined;
   }
 
 // get the habit list from localStorage

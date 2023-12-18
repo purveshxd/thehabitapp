@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:habitapp/controller/habit.controller.dart';
 
 import 'package:habitapp/models/habit.model.dart';
+import 'package:habitapp/widget/headline.widget.dart';
 
 class DailyProgressWidget extends StatelessWidget {
   final List<Habit> habit;
@@ -19,19 +20,8 @@ class DailyProgressWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           // mainAxisSize: MainAxisSize.min,
           children: [
-            RichText(
-              text: TextSpan(
-                text: "Today's",
-                style: Theme.of(context).textTheme.headlineLarge,
-                children: [
-                  TextSpan(
-                    text: " Habits",
-                    style: (Theme.of(context).textTheme.headlineLarge)!.merge(
-                      const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
-              ),
+            const PageHeadline(
+              headlineText: "Today's Habits",
             ),
             const SizedBox(
               height: 10,

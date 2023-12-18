@@ -19,13 +19,16 @@ class Habit {
   final bool isCompleted;
   @HiveField(3)
   final String id;
+  @HiveField(4)
+  final List<DateTime>? habitCompletions;
 
-  Habit({
-    required this.habitName,
-    required this.days,
-    this.isCompleted = false,
-    String? id,
-  }) : id = id ?? uuid.v4();
+  Habit(
+      {required this.habitName,
+      required this.days,
+      this.isCompleted = false,
+      String? id,
+      this.habitCompletions})
+      : id = id ?? uuid.v4();
   // final DateTime dateCreated = DateTime.now();
 
   Habit copyWith({

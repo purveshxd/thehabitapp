@@ -1,7 +1,5 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/material.dart';
 
-// final styleController = Provider<List<Color>>((ref) => [
-
-// ]);
-
+ColorScheme colorthemeContext(context) => Theme.of(context).colorScheme;
+// theme context for text
+TextTheme textthemeContext(context) => Theme.of(context).textTheme;

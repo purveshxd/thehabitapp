@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habitapp/constants/components.dart';
+import 'package:habitapp/localStorage/local_store.dart';
 import 'package:habitapp/models/habit.model.dart';
 import 'package:habitapp/pages/habitdetails.page.dart';
 
@@ -65,7 +66,7 @@ class HabitTile extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Text(
-                  habit.habitName.capitalize(),
+                  '${habit.habitName.capitalize()} ${LocalStorage().getDateJoined()}',
                   // '${habit.habitName.capitalize()}  ${habit.id}',
                   // habit.habitName[0].toUpperCase() +
                   //     habit.habitName.substring(1),

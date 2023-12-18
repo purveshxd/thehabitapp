@@ -1,9 +1,11 @@
 import 'package:habitapp/constants/components.dart';
 import 'package:habitapp/models/habit.model.dart';
+import 'package:intl/intl.dart';
 
 class HabitController {
   final List<Habit> habitList;
   HabitController({required this.habitList});
+
   // total habits in a day
   int totalHabit(List<Habit> habitList) {
     final todaysHabit = todaysHabitList(habitList);
@@ -51,4 +53,56 @@ class HabitController {
         );
     return temp;
   }
+}
+
+giveWeekDates() {
+  final List<DateTime> weekList = [];
+  final date = DateTime.now();
+  print(date);
+  for (var i = 0; i < 7; i++) {
+    print(
+      date.add(
+        Duration(days: i),
+      ),
+    );
+    weekList.add(date.add(Duration(days: i)));
+  }
+  print(weekList);
+  return weekList;
+}
+
+extension DateTimeExtension on DateTime {
+  int get weekOfMonth {
+    var wom = 0;
+    var date = this;
+
+    while (date.month == month) {
+      wom++;
+      date = date.subtract(const Duration(days: 7));
+    }
+
+    return wom;
+  }
+}
+
+timepass() {
+  print(DateTime.now().day / 7);
+
+  if (DateTime.now().weekday == DateTime.monday) {
+    final List<DateTime> weekList = [];
+    final date = DateTime.now();
+    print(date);
+    for (var i = 0; i < 7; i++) {
+      print(
+        date.add(
+          Duration(days: i),
+        ),
+      );
+      weekList.add(date.add(Duration(days: i)));
+    }
+  }else{
+    
+  }
+
+  final formattedDate = DateFormat('dd-E').format(DateTime.now());
 }
