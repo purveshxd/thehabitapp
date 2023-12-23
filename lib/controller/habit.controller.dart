@@ -1,6 +1,5 @@
 import 'package:habitapp/constants/components.dart';
 import 'package:habitapp/models/habit.model.dart';
-import 'package:intl/intl.dart';
 
 class HabitController {
   final List<Habit> habitList;
@@ -104,5 +103,4 @@ timepass() {
     
   }
 
-  final formattedDate = DateFormat('dd-E').format(DateTime.now());
 }

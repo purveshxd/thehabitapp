@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitapp/models/habit.model.dart';
 import 'package:habitapp/pages/homepage.dart';
-import 'package:habitapp/pages/settings.page.dart';
-import 'package:habitapp/pages/todayshabit.page.dart';
+import 'package:habitapp/widget/theme_dialog.widget.dart';
 import 'package:hive_flutter/adapters.dart';
 
 void main() async {
@@ -16,14 +15,14 @@ void main() async {
   runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends ConsumerStatefulWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  ConsumerState<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends ConsumerState<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -33,13 +32,14 @@ class _MyAppState extends State<MyApp> {
         pageTransitionsTheme: const PageTransitionsTheme(
             builders: {TargetPlatform.android: ZoomPageTransitionsBuilder()}),
         brightness: Brightness.dark,
-        colorSchemeSeed: Colors.lime,
+        colorSchemeSeed: ref.watch(currentColor),
         useMaterial3: true,
       ),
       theme: ThemeData(
-          brightness: Brightness.light,
-          useMaterial3: true,
-          colorSchemeSeed: Colors.deepPurpleAccent),
+        brightness: Brightness.light,
+        useMaterial3: true,
+        colorSchemeSeed: ref.watch(currentColor),
+      ),
       home: Homepage(),
     );
   }

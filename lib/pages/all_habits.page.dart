@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:habitapp/controller/habit.controller.dart';
 import 'package:habitapp/models/user_habit.model.dart';
-import 'package:habitapp/widget/habit_list.dart';
 import 'package:habitapp/widget/headline.widget.dart';
 import 'package:habitapp/widget/weekly_calendar.dart';
+import 'package:intl/intl.dart';
 
 class AllHabitsPage extends ConsumerWidget {
   const AllHabitsPage({super.key});
@@ -19,9 +20,30 @@ class AllHabitsPage extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const PageHeadline(headlineText: "All Habits"),
+
         const SizedBox(height: 10),
-        WeeklyCalendar(habitList: ref.watch(habitStateNotifierProvider)),
-        const SizedBox(height: 5),
+        WeeklyCalendar(
+          habitList: ref.watch(habitStateNotifierProvider),
+        ),
+        const SizedBox(height: 10),
+        Row(
+          children: [
+            Text(
+              DateFormat('MMMM').format(
+                DateTime.now(),
+              ),
+              style:
+                  const TextStyle(fontWeight: FontWeight.normal, fontSize: 21),
+            ),
+            Text(
+              ' Week - ${(DateTime.now().day / 7).round()}',
+              style:
+                  const TextStyle(fontWeight: FontWeight.normal, fontSize: 21),
+            ),
+          ],
+        ),
+        const SizedBox(height: 10),
+        const Divider(thickness: 2),
         // HabitList(habitList: ref.watch(habitStateNotifierProvider))
         // ListView.builder(itemBuilder: (context, index) => ,)
         Flexible(

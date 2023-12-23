@@ -17,11 +17,6 @@ class TodaysHabitPage extends ConsumerWidget {
     // final confettiController = ConfettiController();
 
 //  tells the current brightness
-    Color checkBrightness(Color darkColor, Color lightColor) {
-      return colorthemeContext(context).brightness == Brightness.dark
-          ? darkColor
-          : lightColor;
-    }
 
     // final habitsTemp = ref.read(habitListProvider);
     final habitsTemp = ref.watch(habitStateNotifierProvider);
