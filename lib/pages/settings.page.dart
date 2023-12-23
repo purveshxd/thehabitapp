@@ -36,17 +36,7 @@ class SettingsPage extends ConsumerWidget {
             "Name",
             style: textthemeContext(context).headlineSmall,
           ),
-          trailing: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                "Name of the user",
-                style: textthemeContext(context).bodyMedium,
-              ),
-              const SizedBox(width: 10),
-              const Icon(Icons.arrow_forward_ios_rounded)
-            ],
-          ),
+          trailing: const Icon(Icons.mode_edit_rounded),
         )
       ],
     ));

@@ -66,7 +66,7 @@ class HabitTile extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Text(
-                  '${habit.habitName.capitalize()} ${LocalStorage().getDateJoined()}',
+                  '${habit.habitName.capitalize()}\nDateJoined - ${LocalStorage().getDateJoined()}\nHabit Created - ${habit.habitCreated}',
                   // '${habit.habitName.capitalize()}  ${habit.id}',
                   // habit.habitName[0].toUpperCase() +
                   //     habit.habitName.substring(1),

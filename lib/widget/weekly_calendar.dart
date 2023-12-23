@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:habitapp/constants/components.dart';
+import 'package:habitapp/constants/constants.dart';
+import 'package:habitapp/controller/habit.controller.dart';
 import 'package:habitapp/localStorage/local_store.dart';
 import 'package:habitapp/style/style.controller.dart';
 
@@ -13,18 +15,26 @@ class WeeklyCalendar extends StatelessWidget {
   Widget build(BuildContext context) {
 // generates list of days in week
     List<DateTime> giveDateRange() {
-      final List<DateTime> weekList = [];
-      // DateTime().
-      final date = DateTime.now().weekday == 0
-          ? DateTime.now()
-          : LocalStorage().getDateJoined();
+      DateTime firstDayofWeek() {
+        return DateTime.now()
+            .subtract(Duration(days: DateTime.now().weekday - 1));
+      }
 
-      for (var i = 0; i < 7; i++) {
-        weekList.add(
-          date.add(
-            Duration(days: i),
-          ),
-        );
+      final List<DateTime> weekList = [];
+      final dateNow = DateTime.now();
+      final weekfirstDay = firstDayofWeek();
+      print((dateNow.day / 7).round());
+
+      final date = DateTime.now();
+
+      if (weekfirstDay.weekday == DateTime.monday) {
+        for (var i = 0; i < 7; i++) {
+          weekList.add(
+            weekfirstDay.add(
+              Duration(days: i),
+            ),
+          );
+        }
       }
 
       print(weekList);

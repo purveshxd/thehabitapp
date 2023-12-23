@@ -85,14 +85,13 @@ class _AddHabitPageState extends ConsumerState<AddHabitPage> {
             padding: const EdgeInsets.all(12.0),
             child: SubmitButton(
               onPressed: () {
-                // ref.watch(habitListProvider.notifier).update((state) {
-                //   state.add(Habit(
-                //       habitName: habitNameController.text, days: selectedDays));
-                //   return state;
-                // });
-
-                ref.watch(habitStateNotifierProvider.notifier).addHabit(Habit(
-                    habitName: habitNameController.text, days: selectedDays));
+                ref.watch(habitStateNotifierProvider.notifier).addHabit(
+                      Habit(
+                        habitName: habitNameController.text,
+                        days: selectedDays,
+                        habitCreated: DateTime.now(),
+                      ),
+                    );
                 Navigator.pop(context);
                 ref
                     .watch(switchValueProvider.notifier)

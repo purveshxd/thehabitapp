@@ -21,9 +21,12 @@ class Habit {
   final String id;
   @HiveField(4)
   final List<DateTime>? habitCompletions;
+  @HiveField(5)
+  final DateTime? habitCreated;
 
   Habit(
       {required this.habitName,
+      this.habitCreated,
       required this.days,
       this.isCompleted = false,
       String? id,

@@ -24,14 +24,16 @@ class AllHabitsPage extends ConsumerWidget {
         const SizedBox(height: 5),
         // HabitList(habitList: ref.watch(habitStateNotifierProvider))
         // ListView.builder(itemBuilder: (context, index) => ,)
-        ListView.builder(
-          itemCount: 10,
-          shrinkWrap: true,
-          itemBuilder: (context, index) => ListTile(
-              title: Text('$index - name'),
-              onTap: () {
-                isDaysHabit();
-              }),
+        Flexible(
+          child: ListView.builder(
+            itemCount: 10,
+            shrinkWrap: true,
+            itemBuilder: (context, index) => ListTile(
+                title: Text('$index - name'),
+                onTap: () {
+                  isDaysHabit();
+                }),
+          ),
         ),
       ],
     );
