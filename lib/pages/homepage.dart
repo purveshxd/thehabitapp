@@ -12,15 +12,16 @@ final currentPageProvider = StateProvider((ref) => 0);
 class Homepage extends ConsumerWidget {
   Homepage({super.key});
 
-  final pageList = [
+  final pageList = <Widget>[
     const TodaysHabitPage(),
     const AllHabitsPage(),
-     SettingsPage()
+    SettingsPage(),
   ];
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentPage = ref.watch(currentPageProvider);
     return Scaffold(
+      // backgroundColor: colorthemeContext(context).background,
       appBar: appbar(context, currentPage),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18.0),
@@ -29,8 +30,9 @@ class Homepage extends ConsumerWidget {
       bottomNavigationBar: bottomNavBar(currentPage, ref),
       floatingActionButton: currentPage == 2
           ? null
-          : FloatingActionButton.large(
-            
+          : FloatingActionButton.extended(
+              label: const Text("Add Habit"),
+
               // backgroundColor: colorthemeContext(context).primary,
               onPressed: () {
                 final date = DateTime.now();
@@ -41,7 +43,7 @@ class Homepage extends ConsumerWidget {
                   builder: (context) => const AddHabitPage(),
                 ));
               },
-              child: Icon(
+              icon: Icon(
                 Icons.add_rounded,
                 color: colorthemeContext(context).onSecondaryContainer,
                 size: MediaQuery.of(context).size.shortestSide / 14,

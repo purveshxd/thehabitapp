@@ -56,15 +56,23 @@ class ThemeDialog extends ConsumerWidget {
                             );
                       },
                       child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          border: ref.watch(currentColor) ==
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            border: ref.watch(currentColor) ==
+                                    materialColors.elementAt(index)
+                                ? Border.all(
+                                    width: 2,
+                                    color: colorthemeContext(context).tertiary)
+                                : null,
+                            color: materialColors.elementAt(index),
+                          ),
+                          child: ref.watch(currentColor) == 
                                   materialColors.elementAt(index)
-                              ? Border.all(width: 2, color: Colors.white)
-                              : null,
-                          color: materialColors.elementAt(index),
-                        ),
-                      ),
+                              ? Icon(
+                                  Icons.check_circle_rounded,
+                                  color: colorthemeContext(context).tertiary,
+                                )
+                              : null),
                     );
                   }),
             ],

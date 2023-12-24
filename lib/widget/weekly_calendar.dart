@@ -1,15 +1,25 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 // import 'dart:math';
 
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:habitapp/constants/components.dart';
+import 'package:habitapp/models/habit.model.dart';
+import 'package:habitapp/pages/all_habits.page.dart';
 import 'package:habitapp/style/style.controller.dart';
 
-class WeeklyCalendar extends StatelessWidget {
+class WeeklyCalendar extends ConsumerWidget {
   final dynamic habitList;
-  const WeeklyCalendar({super.key, required this.habitList});
+  const WeeklyCalendar({
+    Key? key,
+    required this.habitList,
+  }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
 // generates list of days in week
     List<DateTime> giveDateRange() {
       final dateNow = DateTime.now();
@@ -40,16 +50,21 @@ class WeeklyCalendar extends StatelessWidget {
         children: [
           for (var i = 0; i < 7; i++)
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                ref
+                    .watch(selectedDayProvider.notifier)
+                    .update((state) => Days.values[i]);
+              },
               child: Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                    // border: giveDateRange()[i].day == DateTime.now().day
-                    //     ? Border.all(
-                    //         color: colorthemeContext(context).outline,
-                    //         width: 2,
-                    //         strokeAlign: BorderSide.strokeAlignCenter)
-                    //     : null,
+                    border: ref.watch(selectedDayProvider).index == i
+                        ? Border.all(
+                            color: Colors.white,
+                            // color: colorthemeContext(context).outline,
+                            width: 2,
+                            strokeAlign: BorderSide.strokeAlignCenter)
+                        : null,
                     borderRadius: BorderRadius.circular(10),
                     color: giveDateRange()[i].day == DateTime.now().day
                         ? colorthemeContext(context).primary
