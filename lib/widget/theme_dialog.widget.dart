@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitapp/constants/components.dart';
 import 'package:habitapp/style/style.controller.dart';
 
-final currentColor = StateProvider((ref) => materialColors[11]);
+final currentColor = StateProvider((ref) => materialColors[1]);
 
 class ThemeDialog extends ConsumerWidget {
   const ThemeDialog({
@@ -66,7 +66,7 @@ class ThemeDialog extends ConsumerWidget {
                                 : null,
                             color: materialColors.elementAt(index),
                           ),
-                          child: ref.watch(currentColor) == 
+                          child: ref.watch(currentColor) ==
                                   materialColors.elementAt(index)
                               ? Icon(
                                   Icons.check_circle_rounded,

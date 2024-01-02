@@ -3,14 +3,19 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitapp/style/style.controller.dart';
 import 'package:habitapp/widget/theme_dialog.widget.dart';
 
+final selectedThemeProvider = StateProvider<List<bool>>((ref) {
+  return [true, false, false];
+});
+
 class SettingsPage extends ConsumerWidget {
   SettingsPage({super.key});
 
   final List items = [
     ["Name", const Icon(Icons.mode_edit_rounded)],
-    ["Theme", const Icon(Icons.palette_rounded)],
-    ["Large Fab Button", const Icon(Icons.add_box_rounded)]
+    ["Color", const Icon(Icons.palette_rounded)],
+    ["Theme", const Icon(Icons.dark_mode_rounded)]
   ];
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
@@ -21,44 +26,71 @@ class SettingsPage extends ConsumerWidget {
           color: colorthemeContext(context).primary,
           size: MediaQuery.of(context).size.width / 3,
         ),
-        ListView.separated(
-            shrinkWrap: true,
-            separatorBuilder: (context, index) => const Divider(),
-            itemCount: items.length,
-            itemBuilder: (context, index) {
-              if (index == 1) {
-                return ListTile(
-                  onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) => const ThemeDialog());
-                  },
-                  shape: const StadiumBorder(),
-                  contentPadding: const EdgeInsets.all(10),
-                  dense: true,
-                  visualDensity: VisualDensity.adaptivePlatformDensity,
-                  // tileColor: colorthemeContext(context).primaryContainer,
-                  title: Text(
-                    items[index][0],
-                    style: textthemeContext(context).headlineSmall,
-                  ),
-                  trailing: const CircleAvatar(),
-                  iconColor: colorthemeContext(context).primary,
+        ListView(
+          shrinkWrap: true,
+          children: [
+            ListTile(
+              shape: const StadiumBorder(),
+              contentPadding: const EdgeInsets.all(10),
+              dense: true,
+              visualDensity: VisualDensity.adaptivePlatformDensity,
+              title: Text(
+                "Name",
+                style: textthemeContext(context).headlineSmall,
+              ),
+              trailing: const Icon(Icons.edit_rounded),
+            ),
+            const Divider(),
+            ListTile(
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => const ThemeDialog(),
                 );
-              }
-              return ListTile(
-                shape: const StadiumBorder(),
-                contentPadding: const EdgeInsets.all(10),
-                dense: true,
-                visualDensity: VisualDensity.adaptivePlatformDensity,
-                // tileColor: colorthemeContext(context).primaryContainer,
-                title: Text(
-                  items[index][0],
-                  style: textthemeContext(context).headlineSmall,
+              },
+              shape: const StadiumBorder(),
+              contentPadding: const EdgeInsets.all(10),
+              dense: true,
+              visualDensity: VisualDensity.adaptivePlatformDensity,
+              title: Text(
+                "Color",
+                style: textthemeContext(context).headlineSmall,
+              ),
+              trailing: const CircleAvatar(),
+              iconColor: colorthemeContext(context).primary,
+            ),
+            const Divider(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ToggleButtons(
+                  borderRadius: BorderRadius.circular(10),
+                  renderBorder: true,
+                  isSelected: ref.read(selectedThemeProvider),
+                  children: const [
+                    Icon(Icons.phone_android_rounded),
+                    Icon(Icons.light_mode_rounded),
+                    Icon(Icons.dark_mode_rounded),
+                  ],
+                  onPressed: (index) {
+                    final newState = ref.watch(selectedThemeProvider);
+
+                    final ele =
+                        newState.firstWhere((element) => element == true);
+                    newState.insert(newState.indexOf(ele), !ele);
+                    newState.remove(ele);
+                    newState.removeAt(index);
+                    newState.insert(index, ele);
+                    ref
+                        .refresh(selectedThemeProvider.notifier)
+                        .update((state) => newState);
+                  },
                 ),
-                trailing: items[index][1],
-              );
-            })
+              ],
+            ),
+          ],
+        )
       ],
     ));
   }

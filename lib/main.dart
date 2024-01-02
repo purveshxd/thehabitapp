@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitapp/models/habit.model.dart';
 import 'package:habitapp/pages/homepage.dart';
+import 'package:habitapp/pages/settings.page.dart';
 import 'package:habitapp/widget/theme_dialog.widget.dart';
 import 'package:hive_flutter/adapters.dart';
 
@@ -23,11 +24,20 @@ class MyApp extends ConsumerStatefulWidget {
 }
 
 class _MyAppState extends ConsumerState<MyApp> {
+  ThemeMode setThemeMode() {
+    final index = ref
+        .watch(selectedThemeProvider)
+        .indexWhere((element) => element == true);
+
+    final ThemeMode themeMode = ThemeMode.values[index];
+    return themeMode;
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.system,
+      themeMode: setThemeMode(),
       darkTheme: ThemeData(
         pageTransitionsTheme: const PageTransitionsTheme(
             builders: {TargetPlatform.android: ZoomPageTransitionsBuilder()}),

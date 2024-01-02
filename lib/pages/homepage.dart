@@ -65,16 +65,18 @@ class Homepage extends ConsumerWidget {
               quarterTurns: 2,
               child: Icon(Icons.view_list_rounded),
             ),
-            enabled: true,
+            // enabled: true,
             label: "Daily"),
         NavigationDestination(
-            icon: Icon(Icons.splitscreen_rounded),
-            label: 'Habits',
-            enabled: true),
+          icon: Icon(Icons.splitscreen_rounded),
+          label: 'Habits',
+          // enabled: true,
+        ),
         NavigationDestination(
-            icon: Icon(Icons.settings_rounded),
-            label: 'Settings',
-            enabled: true),
+          icon: Icon(Icons.settings_rounded),
+          label: 'Settings',
+          // enabled: true,
+        ),
       ],
     );
   }
