@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitapp/constants/components.dart';
 import 'package:habitapp/style/style.controller.dart';
 
-final currentColor = StateProvider((ref) => materialColors[1]);
+final currentColor = StateProvider((ref) => materialColors[16]);
 
 class ThemeDialog extends ConsumerWidget {
   const ThemeDialog({

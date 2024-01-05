@@ -42,6 +42,8 @@ dependencies:
   hive_flutter: ^1.1.0
   uuid: ^4.2.1
   flutter_heatmap_calendar: ^1.0.5
+  google_fonts: ^6.1.0
+  metaballs: ^1.5.0
 
 dev_dependencies:
   flutter_test:

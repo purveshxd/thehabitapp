@@ -15,7 +15,7 @@ class Homepage extends ConsumerWidget {
   final pageList = <Widget>[
     const TodaysHabitPage(),
     const AllHabitsPage(),
-    SettingsPage(),
+    const SettingsPage(),
   ];
   @override
   Widget build(BuildContext context, WidgetRef ref) {

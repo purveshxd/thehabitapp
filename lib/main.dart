@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:habitapp/models/habit.model.dart';
 import 'package:habitapp/pages/homepage.dart';
-import 'package:habitapp/pages/settings.page.dart';
+import 'package:habitapp/pages/welcome.page.dart';
+import 'package:habitapp/style/style.controller.dart';
 import 'package:habitapp/widget/theme_dialog.widget.dart';
 import 'package:hive_flutter/adapters.dart';
 
@@ -37,7 +39,7 @@ class _MyAppState extends ConsumerState<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      themeMode: setThemeMode(),
+      themeMode: ThemeMode.system,
       darkTheme: ThemeData(
         pageTransitionsTheme: const PageTransitionsTheme(
             builders: {TargetPlatform.android: ZoomPageTransitionsBuilder()}),
@@ -50,7 +52,7 @@ class _MyAppState extends ConsumerState<MyApp> {
         useMaterial3: true,
         colorSchemeSeed: ref.watch(currentColor),
       ),
-      home: Homepage(),
+      home: const OnboardingScreen(),
     );
   }
 }

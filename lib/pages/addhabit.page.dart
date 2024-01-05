@@ -38,7 +38,10 @@ class _AddHabitPageState extends ConsumerState<AddHabitPage> {
           // textfield to give habit name
           Padding(
             padding: const EdgeInsets.all(12.0),
-            child: MyTextField(habitNameController: habitNameController),
+            child: MyTextField(
+                habitNameController: habitNameController,
+                autoFocus: true,
+                hintText: "Habit Name"),
           ),
 
           Padding(

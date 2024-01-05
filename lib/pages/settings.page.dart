@@ -3,18 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitapp/style/style.controller.dart';
 import 'package:habitapp/widget/theme_dialog.widget.dart';
 
-final selectedThemeProvider = StateProvider<List<bool>>((ref) {
-  return [true, false, false];
-});
-
 class SettingsPage extends ConsumerWidget {
-  SettingsPage({super.key});
-
-  final List items = [
-    ["Name", const Icon(Icons.mode_edit_rounded)],
-    ["Color", const Icon(Icons.palette_rounded)],
-    ["Theme", const Icon(Icons.dark_mode_rounded)]
-  ];
+  const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -60,35 +50,34 @@ class SettingsPage extends ConsumerWidget {
               iconColor: colorthemeContext(context).primary,
             ),
             const Divider(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                ToggleButtons(
-                  borderRadius: BorderRadius.circular(10),
-                  renderBorder: true,
-                  isSelected: ref.read(selectedThemeProvider),
-                  children: const [
-                    Icon(Icons.phone_android_rounded),
-                    Icon(Icons.light_mode_rounded),
-                    Icon(Icons.dark_mode_rounded),
-                  ],
-                  onPressed: (index) {
-                    final newState = ref.watch(selectedThemeProvider);
-
-                    final ele =
-                        newState.firstWhere((element) => element == true);
-                    newState.insert(newState.indexOf(ele), !ele);
-                    newState.remove(ele);
-                    newState.removeAt(index);
-                    newState.insert(index, ele);
-                    ref
-                        .refresh(selectedThemeProvider.notifier)
-                        .update((state) => newState);
-                  },
-                ),
-              ],
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   crossAxisAlignment: CrossAxisAlignment.center,
+            //   children: [
+            //     ToggleButtons(
+            //       borderRadius: BorderRadius.circular(10),
+            //       renderBorder: true,
+            //       isSelected: ref.read(selectedThemeProvider),
+            //       children: const [
+            //         Icon(Icons.phone_android_rounded),
+            //         Icon(Icons.light_mode_rounded),
+            //         Icon(Icons.dark_mode_rounded),
+            //       ],
+            //       onPressed: (index) {
+            //         final newState = ref.watch(selectedThemeProvider);
+            //         final ele =
+            //             newState.firstWhere((element) => element == true);
+            //         newState.insert(newState.indexOf(ele), !ele);
+            //         newState.remove(ele);
+            //         newState.removeAt(index);
+            //         newState.insert(index, ele);
+            //         ref
+            //             .refresh(selectedThemeProvider.notifier)
+            //             .update((state) => newState);
+            //       },
+            //     ),
+            //   ],
+            // ),
           ],
         )
       ],

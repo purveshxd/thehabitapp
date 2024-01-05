@@ -19,7 +19,7 @@ class LocalStorage {
   void createInitialData() {
     habitList = [
       Habit(
-        habitName: "Thi is the first habit",
+        habitName: "This is the first habit",
         days: [Days.fri, Days.mon, Days.sat, Days.sat, Days.wed],
         isCompleted: false,
       ),
