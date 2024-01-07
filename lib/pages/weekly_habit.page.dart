@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitapp/models/habit.model.dart';
-import 'package:habitapp/models/user_habit.model.dart';
+import 'package:habitapp/controller/habit.notifier.dart';
 import 'package:habitapp/widget/habit_tile.dart';
 import 'package:habitapp/widget/headline.widget.dart';
 import 'package:habitapp/widget/weekly_calendar.dart';
@@ -15,8 +15,8 @@ final selectedDayProvider = StateProvider<Days>((ref) {
       .firstWhere((element) => element.name == formattedDate.toLowerCase());
 });
 
-class AllHabitsPage extends ConsumerWidget {
-  const AllHabitsPage({super.key});
+class WeeklyHabitPage extends ConsumerWidget {
+  const WeeklyHabitPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -33,7 +33,7 @@ class AllHabitsPage extends ConsumerWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const PageHeadline(headlineText: "All Habits"),
+        const PageHeadline(headlineText: "Weekly Habits"),
         const SizedBox(height: 10),
         WeeklyCalendar(
           habitList: ref.watch(habitStateNotifierProvider),
@@ -53,6 +53,7 @@ class AllHabitsPage extends ConsumerWidget {
         const Divider(thickness: 2),
         Flexible(
           child: ListView.builder(
+              physics: const BouncingScrollPhysics(),
               itemCount: ref.watch(habitStateNotifierProvider).length,
               shrinkWrap: true,
               itemBuilder: (context, index) {

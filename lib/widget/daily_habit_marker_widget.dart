@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:habitapp/controller/habit.controller.dart';
+import 'package:habitapp/utils/habit_utils.dart';
 
 import 'package:habitapp/models/habit.model.dart';
 import 'package:habitapp/widget/headline.widget.dart';
@@ -11,7 +11,7 @@ class DailyProgressWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final habitController = HabitController(habitList: habit);
+    final habitController = HabitUtils(habitList: habit);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -34,7 +34,7 @@ class DailyProgressWidget extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(5.0),
           child: SizedBox.square(
-            dimension: 100,
+            dimension: MediaQuery.of(context).size.width / 5,
             child: CircularProgressIndicator(
               value: habitController.completedHabit(habit) /
                   habitController.totalHabit(habit),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:habitapp/controller/habit.controller.dart';
+import 'package:habitapp/utils/habit_utils.dart';
 import 'package:habitapp/models/habit.model.dart';
-import 'package:habitapp/models/user_habit.model.dart';
+import 'package:habitapp/controller/habit.notifier.dart';
 import 'package:habitapp/widget/habit_tile.dart';
 
 // to check todays habit complete
@@ -32,7 +32,7 @@ class HabitList extends ConsumerWidget {
     //   );
     // }
 
-    final habitController = HabitController(habitList: habitList);
+    final habitController = HabitUtils(habitList: habitList);
 
     markHabitDone(Habit markHabit) {
       ref
@@ -53,7 +53,7 @@ class HabitList extends ConsumerWidget {
               shrinkWrap: true,
               itemCount: habitList.length,
               itemBuilder: (context, index) {
-                if (HabitController(habitList: habitList).isTodayHabit(index) &&
+                if (HabitUtils(habitList: habitList).isTodayHabit(index) &&
                     !habitList[index].isCompleted) {
                   // print(habit[index]);
                   return HabitTile(
@@ -125,7 +125,7 @@ class HabitList extends ConsumerWidget {
               itemCount: habitList.length,
               itemBuilder: (context, index) {
                 // print(habit[index]);
-                if (HabitController(habitList: habitList).isTodayHabit(index) &&
+                if (HabitUtils(habitList: habitList).isTodayHabit(index) &&
                     habitList[index].isCompleted) {
                   return HabitTile(
                     toggleControl: () {

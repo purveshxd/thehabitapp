@@ -1,7 +1,7 @@
 import 'package:habitapp/models/habit.model.dart';
 import 'package:hive/hive.dart';
 
-class LocalStorage {
+class HabitStorage {
   List<Habit> habitList = [];
   final box = Hive.box('habitStorage');
   // LocalStorage() {
@@ -19,12 +19,12 @@ class LocalStorage {
   void createInitialData() {
     habitList = [
       Habit(
-        habitName: "This is the first habit",
+        habitName: "This is Kaizen, a habit tracker app",
         days: [Days.fri, Days.mon, Days.sat, Days.sat, Days.wed],
         isCompleted: false,
       ),
       Habit(
-        habitName: "Thi is the second habit",
+        habitName: "Example habit, try to tap on the tick mark",
         days: Days.values,
         isCompleted: false,
       ),

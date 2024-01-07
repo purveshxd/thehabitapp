@@ -13,7 +13,7 @@ final currentPageProvider = StateProvider<int>((ref) {
 
 class OnboardingScreen extends ConsumerWidget {
   const OnboardingScreen({super.key});
-
+  final double blurPer = 25;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // PageController pageController = PageController();
@@ -30,6 +30,8 @@ class OnboardingScreen extends ConsumerWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomLeft,
             colors: [
+              colorthemeContext(context).primary,
+              colorthemeContext(context).primaryContainer,
               colorthemeContext(context).secondary,
               colorthemeContext(context).secondaryContainer,
             ],
@@ -48,7 +50,7 @@ class OnboardingScreen extends ConsumerWidget {
             children: [
               const Spacer(),
               BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+                filter: ImageFilter.blur(sigmaX: blurPer, sigmaY: blurPer),
                 child: Container(
                   padding: const EdgeInsets.all(10),
                   margin: const EdgeInsets.all(10),
@@ -65,31 +67,37 @@ class OnboardingScreen extends ConsumerWidget {
                             color: colorthemeContext(context).primary,
                           )),
                       const SizedBox(height: 5),
+                      // Text(
+                      //   "/kʌɪzn,kʌɪzɛn/",
+                      //   style: GoogleFonts.poppins(
+                      //       fontSize: Theme.of(context)
+                      //           .textTheme
+                      //           .headlineSmall!
+                      //           .fontSize,
+                      //       color: colorthemeContext(context).secondary),
+                      //   // Theme.of(context).textTheme.headlineSmall!.copyWith(
+                      //   //       color: colorthemeContext(context).secondary,
+                      //   //     ),
+                      // ),
+                      // const SizedBox(height: 5),
                       Text(
-                        "/ˈkʌɪzn,ˈkʌɪzɛn/",
-                        style:
-                            Theme.of(context).textTheme.headlineSmall!.copyWith(
-                                  color: colorthemeContext(context).secondary,
-                                ),
+                        "A Japanese business philosophy of continuous improvement of working practices, personal efficiency, etc.",
+                        style: GoogleFonts.poppins(
+                            color: colorthemeContext(context).onBackground,
+                            fontSize: Theme.of(context)
+                                .textTheme
+                                .bodyLarge!
+                                .fontSize),
                       ),
-                      const SizedBox(height: 5),
-                      Text(
-                          "A Japanese business philosophy of continuous improvement of working practices, personal efficiency, etc.",
-                          style: GoogleFonts.poppins(
-                              color: colorthemeContext(context).onBackground,
-                              fontSize: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge!
-                                  .fontSize)),
                     ],
                   ),
                 ),
               ),
               const Spacer(),
               ExpandedButton(
-                text: "Let's Go",
+                text: "Get Started",
                 onPressed: () {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                       builder: (context) => FeatureHighlightScreen(),

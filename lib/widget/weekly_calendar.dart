@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:habitapp/constants/components.dart';
 import 'package:habitapp/models/habit.model.dart';
-import 'package:habitapp/pages/all_habits.page.dart';
+import 'package:habitapp/pages/weekly_habit.page.dart';
 import 'package:habitapp/style/style.controller.dart';
 
 class WeeklyCalendar extends ConsumerWidget {
@@ -38,10 +38,12 @@ class WeeklyCalendar extends ConsumerWidget {
     }
 
     return Container(
+      width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-          color: colorthemeContext(context).secondaryContainer,
-          borderRadius: BorderRadius.circular(20)),
+        color: colorthemeContext(context).secondaryContainer,
+        borderRadius: BorderRadius.circular(15),
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -54,11 +56,11 @@ class WeeklyCalendar extends ConsumerWidget {
                     .update((state) => Days.values[i]);
               },
               child: Container(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                     border: ref.watch(selectedDayProvider).index == i
                         ? Border.all(
-                            color: Colors.white,
+                            color: colorthemeContext(context).outline,
                             // color: colorthemeContext(context).outline,
                             width: 2,
                             strokeAlign: BorderSide.strokeAlignCenter)
@@ -73,7 +75,9 @@ class WeeklyCalendar extends ConsumerWidget {
                   children: [
                     Text(
                       dateFormatter(giveDateRange()[i]).split('-')[0],
-                      style: textthemeContext(context).titleLarge!.copyWith(
+                      style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.width / 25,
+                          // fontSize: 15,
                           color: giveDateRange()[i].day == DateTime.now().day
                               ? colorthemeContext(context).onPrimary
                               : colorthemeContext(context)
@@ -82,7 +86,9 @@ class WeeklyCalendar extends ConsumerWidget {
                     Text(
                       // Constants.days[i].substring(0, 3),
                       dateFormatter(giveDateRange()[i]).split('-')[1],
-                      style: textthemeContext(context).titleSmall!.copyWith(
+                      style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.width / 30,
+                          // fontSize: MediaQuery.of(context).size.width / 50,
                           color: giveDateRange()[i].day == DateTime.now().day
                               ? colorthemeContext(context).onPrimary
                               : colorthemeContext(context).onSecondaryContainer,

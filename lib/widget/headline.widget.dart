@@ -13,11 +13,11 @@ class PageHeadline extends StatelessWidget {
     return RichText(
       text: TextSpan(
         text: headline[0],
-        style: Theme.of(context).textTheme.headlineLarge,
+        style: Theme.of(context).textTheme.headlineMedium,
         children: [
           TextSpan(
             text: " ${headline[1]}",
-            style: (Theme.of(context).textTheme.headlineLarge)!.merge(
+            style: (Theme.of(context).textTheme.headlineMedium)!.merge(
               const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),

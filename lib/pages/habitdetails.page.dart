@@ -3,7 +3,7 @@ import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitapp/constants/components.dart';
 import 'package:habitapp/models/habit.model.dart';
-import 'package:habitapp/models/user_habit.model.dart';
+import 'package:habitapp/controller/habit.notifier.dart';
 
 class HabitDetailsPage extends ConsumerWidget {
   final Habit habit;
@@ -43,6 +43,9 @@ class HabitDetailsPage extends ConsumerWidget {
                         ref
                             .watch(habitStateNotifierProvider.notifier)
                             .deleteHabit(habit.id);
+
+                        Navigator.pop(context);
+                        Navigator.pop(context);
                       },
                       icon: const Icon(Icons.delete_rounded),
                       label: const Text("Delete"),

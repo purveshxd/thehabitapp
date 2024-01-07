@@ -1,12 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:habitapp/localStorage/local_store.dart';
+import 'package:habitapp/localStorage/habit_storage.dart';
 import 'package:habitapp/models/habit.model.dart';
 
-// final habitListProvider =
-//     StateProvider<List<Habit>>((ref) => LocalStorage().createInitialData());
+final habitStateNotifierProvider =
+    StateNotifierProvider<HabitStateNotifier, List<Habit>>(
+        (ref) => HabitStateNotifier(HabitStorage()));
 
 class HabitStateNotifier extends StateNotifier<List<Habit>> {
-  final LocalStorage _localStorage;
+  final HabitStorage _localStorage;
 
   HabitStateNotifier(this._localStorage) : super([]) {
     loadHabits();
@@ -34,7 +35,3 @@ class HabitStateNotifier extends StateNotifier<List<Habit>> {
     loadHabits();
   }
 }
-
-final habitStateNotifierProvider =
-    StateNotifierProvider<HabitStateNotifier, List<Habit>>(
-        (ref) => HabitStateNotifier(LocalStorage()));

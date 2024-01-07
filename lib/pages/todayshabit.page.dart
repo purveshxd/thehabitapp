@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:habitapp/controller/habit.controller.dart';
-import 'package:habitapp/models/user_habit.model.dart';
+import 'package:habitapp/utils/habit_utils.dart';
+import 'package:habitapp/controller/habit.notifier.dart';
 import 'package:habitapp/pages/addhabit.page.dart';
 import 'package:habitapp/style/style.controller.dart';
 import 'package:habitapp/widget/daily_habit_marker_widget.dart';
@@ -22,7 +22,7 @@ class TodaysHabitPage extends ConsumerWidget {
     final habitsTemp = ref.watch(habitStateNotifierProvider);
 
     // habitController
-    final habitController = HabitController(habitList: habitsTemp);
+    final habitController = HabitUtils(habitList: habitsTemp);
 
     final isTodaysHabit = habitController.todaysHabitList(habitsTemp);
     return isTodaysHabit.isNotEmpty

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:habitapp/constants/components.dart';
+import 'package:habitapp/localStorage/user_storage.dart';
+import 'package:habitapp/models/user_data.model.dart';
 import 'package:habitapp/style/style.controller.dart';
-
-final currentColor = StateProvider((ref) => materialColors[16]);
 
 class ThemeDialog extends ConsumerWidget {
   const ThemeDialog({
@@ -54,6 +53,8 @@ class ThemeDialog extends ConsumerWidget {
                         ref.watch(currentColor.notifier).update(
                               (state) => materialColors.elementAt(index),
                             );
+                        // UserStorage().loadThemeColor();
+                        UserStorage().setColor(index);
                       },
                       child: Container(
                           decoration: BoxDecoration(

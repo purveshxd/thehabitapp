@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:habitapp/localStorage/user_storage.dart';
+import 'package:habitapp/models/user_data.model.dart';
 import 'package:habitapp/pages/homepage.dart';
 import 'package:habitapp/style/style.controller.dart';
-import 'package:habitapp/widget/expanded_filled_button.dart';
 import 'package:habitapp/widget/text_field.widget.dart';
 
 class FeatureHighlightScreen extends ConsumerWidget {
   FeatureHighlightScreen({super.key});
   final PageController pageController = PageController();
+
+  final TextEditingController textController = TextEditingController();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final List<Widget> pages = [
       featureHighlight(context),
-      enterNameWidget(context)
+      enterNameWidget(context, textController),
     ];
     return Scaffold(
       body: SafeArea(
@@ -29,11 +32,22 @@ class FeatureHighlightScreen extends ConsumerWidget {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           if (pageController.page == 1) {
-            Navigator.pushReplacement(
-                context,
+            if (textController.text.trim().isNotEmpty) {
+              UserStorage().setUsername(textController.text.trim(),);
+
+              Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
                   builder: (context) => Homepage(),
-                ));
+                ),
+              );
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  showCloseIcon: true,
+                  content: Text("Enter your name"),
+                ),
+              );
+            }
           } else {
             pageController.nextPage(
                 duration: const Duration(seconds: 1), curve: Curves.ease);
@@ -85,8 +99,8 @@ class FeatureHighlightScreen extends ConsumerWidget {
     );
   }
 
-  Widget enterNameWidget(BuildContext context) {
-    final controller = TextEditingController();
+  Widget enterNameWidget(
+      BuildContext context, TextEditingController textController) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -109,9 +123,10 @@ class FeatureHighlightScreen extends ConsumerWidget {
             )),
         const SizedBox(height: 12),
         MyTextField(
-            habitNameController: controller,
-            autoFocus: false,
-            hintText: "Name"),
+          habitNameController: textController,
+          autoFocus: false,
+          hintText: "Name",
+        ),
       ],
     );
   }

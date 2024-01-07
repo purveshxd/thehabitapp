@@ -1,9 +1,9 @@
 import 'package:habitapp/constants/components.dart';
 import 'package:habitapp/models/habit.model.dart';
 
-class HabitController {
+class HabitUtils {
   final List<Habit> habitList;
-  HabitController({required this.habitList});
+  HabitUtils({required this.habitList});
 
   // total habits in a day
   int totalHabit(List<Habit> habitList) {

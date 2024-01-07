@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:habitapp/controller/addhabit.controller.dart';
 import 'package:habitapp/models/habit.model.dart';
-import 'package:habitapp/models/user_habit.model.dart';
+import 'package:habitapp/controller/habit.notifier.dart';
 import 'package:habitapp/widget/days_select_widget.dart';
 import 'package:habitapp/widget/submit_button.dart';
 import 'package:habitapp/widget/text_field.widget.dart';
+
+final switchValueProvider = StateProvider((ref) => false);
 
 class AddHabitPage extends ConsumerStatefulWidget {
   const AddHabitPage({super.key});
@@ -88,17 +89,25 @@ class _AddHabitPageState extends ConsumerState<AddHabitPage> {
             padding: const EdgeInsets.all(12.0),
             child: SubmitButton(
               onPressed: () {
-                ref.watch(habitStateNotifierProvider.notifier).addHabit(
-                      Habit(
-                        habitName: habitNameController.text,
-                        days: selectedDays,
-                        habitCreated: DateTime.now(),
-                      ),
-                    );
-                Navigator.pop(context);
-                ref
-                    .watch(switchValueProvider.notifier)
-                    .update((state) => false);
+                if (habitNameController.text.trim().isNotEmpty) {
+                  ref.watch(habitStateNotifierProvider.notifier).addHabit(
+                        Habit(
+                          habitName: habitNameController.text.trim(),
+                          days: selectedDays,
+                          habitCreated: DateTime.now(),
+                        ),
+                      );
+                  Navigator.pop(context);
+                  ref
+                      .watch(switchValueProvider.notifier)
+                      .update((state) => false);
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Enter habit"),
+                    ),
+                  );
+                }
               },
             ),
           )
