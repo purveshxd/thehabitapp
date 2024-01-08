@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
@@ -22,11 +21,11 @@ class Habit {
   @HiveField(4)
   final List<DateTime>? habitCompletions;
   @HiveField(5)
-  final DateTime? habitCreated;
+  final DateTime habitCreated;
 
   Habit(
       {required this.habitName,
-      this.habitCreated,
+      required this.habitCreated,
       required this.days,
       this.isCompleted = false,
       String? id,
@@ -44,7 +43,8 @@ class Habit {
         habitName: habitName ?? this.habitName,
         days: days ?? this.days,
         isCompleted: isCompleted ?? this.isCompleted,
-        id: this.id);
+        id: this.id,
+        habitCreated: habitCreated);
   }
 
   Map<String, dynamic> toMap() {
@@ -60,6 +60,7 @@ class Habit {
       habitName: map['habitName'] as String,
       days: List<Days>.from(map['days'] as List<Days>),
       isCompleted: map['isCompleted'] as bool,
+      habitCreated: map['habitCreated'] as DateTime,
     );
   }
 

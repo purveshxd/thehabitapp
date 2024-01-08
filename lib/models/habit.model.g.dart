@@ -18,7 +18,7 @@ class HabitAdapter extends TypeAdapter<Habit> {
     };
     return Habit(
       habitName: fields[0] as String,
-      habitCreated: fields[5] as DateTime?,
+      habitCreated: fields[5] as DateTime,
       days: (fields[1] as List).cast<Days>(),
       isCompleted: fields[2] as bool,
       id: fields[3] as String?,

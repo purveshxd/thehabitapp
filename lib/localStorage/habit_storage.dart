@@ -19,24 +19,25 @@ class HabitStorage {
   void createInitialData() {
     habitList = [
       Habit(
+        habitCreated: DateTime(2023, 11, 7),
         habitName: "This is Kaizen, a habit tracker app",
-        days: [Days.fri, Days.mon, Days.sat, Days.sat, Days.wed],
+        days: Days.values,
         isCompleted: false,
       ),
       Habit(
+        habitCreated: DateTime(2023, 11, 3),
         habitName: "Example habit, try to tap on the tick mark",
         days: Days.values,
         isCompleted: false,
       ),
     ];
-    box.put("dateJoined", DateTime.now());
     print("initial == ${habitList}");
   }
 
-  dynamic getDateJoined() {
-    final dateJoined = box.get('dateJoined');
-    return dateJoined;
-  }
+  // dynamic getDateJoined() {
+  //   final dateJoined = box.get('dateJoined');
+  //   return dateJoined;
+  // }
 
 // get the habit list from localStorage
   void getHabitList() {

@@ -17,6 +17,15 @@ class UserStorage {
   //   box.putAll(userDataModel.toMap());
   // }
 
+  setDateJoined(DateTime date) {
+    box.put('dateJoined', date);
+  }
+
+  String getDateJoined() {
+    final date = box.get('dateJoined');
+    return date.toString();
+  }
+
   setColor(int index) {
     box.put('colorIndex', index);
   }

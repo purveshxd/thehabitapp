@@ -20,3 +20,39 @@ class Constants {
     "Sunday",
   ];
 }
+
+class DeveloperData {
+  String webSite = "https://flutter-portfolio-ea261.firebaseapp.com/#/";
+  List socialList = [
+    [
+      "Github",
+      "assets/logo/github.png",
+      "https://github.com/purveshxd",
+    ],
+    // [
+    //   "Gmail",
+    //   "assets/logo/email.png",
+    //   "mailto:do.psd23@gmail.com",
+    // ],
+    [
+      "Instagram",
+      "assets/logo/instagram.png",
+      "https://www.instagram.com/purveshxd/"
+    ],
+    [
+      "Linkedin",
+      "assets/logo/linkedin.png",
+      "https://www.linkedin.com/in/purveshxd/",
+    ],
+    [
+      "X/Twitter",
+      "assets/logo/twitter.png",
+      "https://twitter.com/xdpurvesh",
+    ],
+    // [
+    //   "Resume",
+    //   "assets/logo/file.png",
+    //   "https://drive.google.com/file/d/1PQMwKtVOhmG9H6LKqBBMRdG0D4EqsgAP/view?usp=drive_link"
+    // ],
+  ];
+}

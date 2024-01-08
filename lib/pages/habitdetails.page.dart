@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitapp/constants/components.dart';
+import 'package:habitapp/localStorage/user_storage.dart';
 import 'package:habitapp/models/habit.model.dart';
 import 'package:habitapp/controller/habit.notifier.dart';
 
@@ -79,6 +80,7 @@ class HabitDetailsPage extends ConsumerWidget {
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: HeatMap(
+                  startDate: habit.habitCreated,
                   colorMode: ColorMode.opacity,
                   showText: false,
                   size: 35,

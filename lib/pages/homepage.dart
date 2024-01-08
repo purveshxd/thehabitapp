@@ -17,7 +17,7 @@ class Homepage extends ConsumerWidget {
     const TodaysHabitPage(),
     const WeeklyHabitPage(),
     // const AllHabitsPage(),
-     SettingsPage(),
+    SettingsPage(),
   ];
   final PageController pageController = PageController();
   @override

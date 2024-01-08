@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitapp/localStorage/user_storage.dart';
-import 'package:habitapp/models/user_data.model.dart';
 import 'package:habitapp/style/style.controller.dart';
 
 class ThemeDialog extends ConsumerWidget {
