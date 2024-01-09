@@ -1,16 +1,10 @@
-# habitapp
+# Kaizen - The habit app
 
-A new Flutter project.
+### [Link to Apk](https://drive.google.com/file/d/1v5i1Rw1WkVixk7B8XUtpnfMuucpgvwlc/view?usp=sharing)
 
-## Getting Started
+## Features:
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- **Layered Architecture:** Utilizes a structured approach with distinct layers: presentation, application, domain, and data.
+- **State Management:** Employs Riverpod for efficient state management, enabling seamless communication between business logic and UI through structured controllers.
+- **Local Storage:** Integration of Hive for robust local storage, optimizing data persistence and retrieval within the app.
+- **Theming Support:** Implements persistent Material UI-based theming for a consistent and customizable user experience across multiple sessions.
