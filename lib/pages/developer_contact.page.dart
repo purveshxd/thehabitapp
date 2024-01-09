@@ -14,7 +14,6 @@ class DeveloperContactPage extends ConsumerWidget {
       appBar: AppBar(
         centerTitle: true,
         title: const Text("Purveshxd"),
-        
       ),
       body: Center(
         child: Column(
@@ -22,31 +21,41 @@ class DeveloperContactPage extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             GridView.builder(
-              shrinkWrap: true,
-              itemCount: dev.socialList.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2),
-              padding: const EdgeInsets.all(30),
-              itemBuilder: (context, index) => Card(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      dev.socialList[index][1],
-                      scale: 14,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      dev.socialList[index][0],
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+                shrinkWrap: true,
+                itemCount: dev.socialList.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2, crossAxisSpacing: 5, mainAxisSpacing: 5),
+                padding: const EdgeInsets.all(30),
+                itemBuilder: (context, index) => IconButton.filledTonal(
+                      style: IconButton.styleFrom(
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(25),
+                          ),
+                        ),
+                      ),
+                      onPressed: () {
+                        launchUrl(Uri.parse(dev.socialList[index][2]),
+                            mode: LaunchMode.externalApplication);
+                      },
+                      icon: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            dev.socialList[index][1],
+                            scale: 14,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            dev.socialList[index][0],
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    )),
             ActionChip(
               label: const Text("Portfolio Website"),
               shape: const StadiumBorder(),
@@ -61,6 +70,10 @@ class DeveloperContactPage extends ConsumerWidget {
           ],
         ),
       ),
+// Card(
+//                 child:
+//               ),
+
       // body: ListView.separated(
       //   separatorBuilder: (context, index) => const Divider(),
       //   shrinkWrap: true,
