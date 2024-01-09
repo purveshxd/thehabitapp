@@ -4,7 +4,7 @@
 
 ## Features:
 
-- **Layered Architecture:** Utilizes a structured approach with distinct layers: presentation, application, domain, and data.
+- **Layered Architecture:** A Flutter app structured with a layer-first approach.
 - **State Management:** Employs Riverpod for efficient state management, enabling seamless communication between business logic and UI through structured controllers.
 - **Local Storage:** Integration of Hive for robust local storage, optimizing data persistence and retrieval within the app.
 - **Theming Support:** Implements persistent Material UI-based theming for a consistent and customizable user experience across multiple sessions.
