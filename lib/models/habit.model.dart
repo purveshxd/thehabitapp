@@ -22,8 +22,6 @@ class Habit {
   final List<DateTime> habitCompletions;
   @HiveField(5)
   final DateTime habitCreated;
-  final DateTime habitCreated;
-
   Habit({
     required this.habitName,
     required this.habitCreated,
@@ -42,13 +40,13 @@ class Habit {
     List<DateTime>? habitCompletions,
   }) {
     return Habit(
-        habitCreated: habitCreated,
-        habitCompletions: habitCompletions ?? this.habitCompletions,
-        habitName: habitName ?? this.habitName,
-        days: days ?? this.days,
-        isCompleted: isCompleted ?? this.isCompleted,
-        id: this.id,
-        habitCreated: habitCreated);
+      habitCreated: habitCreated,
+      habitCompletions: habitCompletions ?? this.habitCompletions,
+      habitName: habitName ?? this.habitName,
+      days: days ?? this.days,
+      isCompleted: isCompleted ?? this.isCompleted,
+      id: this.id,
+    );
   }
 
   Map<String, dynamic> toMap() {
@@ -66,7 +64,6 @@ class Habit {
       habitName: map['habitName'] as String,
       days: List<Days>.from(map['days'] as List<Days>),
       isCompleted: map['isCompleted'] as bool,
-      habitCreated: map['habitCreated'] as DateTime,
     );
   }
 

@@ -65,7 +65,7 @@ class DeveloperPage extends ConsumerWidget {
               backgroundColor: colorthemeContext(context).secondaryContainer,
               onPressed: () {
                 launchUrlString(
-                  protfolio,
+                  portfolio,
                   mode: LaunchMode.externalApplication,
                 );
               },

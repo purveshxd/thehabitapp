@@ -21,7 +21,7 @@ class Constants {
   ];
 }
 
-String protfolio = 'https://flutter-portfolio-ea261.firebaseapp.com';
+String portfolio = 'https://flutter-portfolio-ea261.firebaseapp.com';
 
 List socialList = [
   ["Github", "assets/logo/github.png", "https://github.com/purveshxd"],

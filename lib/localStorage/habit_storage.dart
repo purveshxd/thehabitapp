@@ -19,10 +19,9 @@ class HabitStorage {
   void createInitialData() {
     habitList = [
       Habit(
-        habitCreated: DateTime(2023, 11, 7),
         habitName: "This is Kaizen, a habit tracker app",
         days: Days.values,
-        days: Days.values,
+       
         isCompleted: false,
         habitCreated: DateTime(2023, 11, 5),
         habitCompletions: [

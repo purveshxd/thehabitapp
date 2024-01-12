@@ -9,7 +9,6 @@ class DeveloperContactPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    DeveloperData dev = DeveloperData();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -22,7 +21,7 @@ class DeveloperContactPage extends ConsumerWidget {
           children: [
             GridView.builder(
                 shrinkWrap: true,
-                itemCount: dev.socialList.length,
+                itemCount: socialList.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2, crossAxisSpacing: 5, mainAxisSpacing: 5),
                 padding: const EdgeInsets.all(30),
@@ -35,7 +34,7 @@ class DeveloperContactPage extends ConsumerWidget {
                         ),
                       ),
                       onPressed: () {
-                        launchUrl(Uri.parse(dev.socialList[index][2]),
+                        launchUrl(Uri.parse(socialList[index][2]),
                             mode: LaunchMode.externalApplication);
                       },
                       icon: Column(
@@ -43,14 +42,14 @@ class DeveloperContactPage extends ConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Image.asset(
-                            dev.socialList[index][1],
+                            socialList[index][1],
                             scale: 14,
                           ),
                           const SizedBox(
                             height: 10,
                           ),
                           Text(
-                            dev.socialList[index][0],
+                            socialList[index][0],
                             style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ],
@@ -63,7 +62,7 @@ class DeveloperContactPage extends ConsumerWidget {
               side: BorderSide.none,
               // avatar: Icon(Icon),
               onPressed: () {
-                launchUrl(Uri.parse(dev.webSite),
+                launchUrl(Uri.parse(portfolio),
                     mode: LaunchMode.externalApplication);
               },
             )

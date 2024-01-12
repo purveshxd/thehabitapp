@@ -75,10 +75,10 @@ class SettingsPage extends ConsumerWidget {
             const SizedBox(height: 10),
             const Divider(),
 
-            Text(ref
-                .watch(habitStateNotifierProvider)[0]
-                .habitCreated
-                .toString()),
+            // Text(ref
+            //     .watch(habitStateNotifierProvider)[0]
+            //     .habitCreated
+            //     .toString()),
             ListTile(
               onTap: () {
                 showDialog(
