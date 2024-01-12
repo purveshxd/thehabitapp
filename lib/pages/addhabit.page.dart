@@ -92,10 +92,10 @@ class _AddHabitPageState extends ConsumerState<AddHabitPage> {
                 if (habitNameController.text.trim().isNotEmpty) {
                   ref.watch(habitStateNotifierProvider.notifier).addHabit(
                         Habit(
-                          habitName: habitNameController.text.trim(),
-                          days: selectedDays,
-                          habitCreated: DateTime.now(),
-                        ),
+                            habitName: habitNameController.text.trim(),
+                            days: selectedDays,
+                            habitCreated: DateTime.now(),
+                            habitCompletions: [],),
                       );
                   Navigator.pop(context);
                   ref

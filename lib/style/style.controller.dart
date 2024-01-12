@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitapp/localStorage/user_storage.dart';
-import 'package:hive/hive.dart';
 
 ColorScheme colorthemeContext(context) => Theme.of(context).colorScheme;
 // theme context for text

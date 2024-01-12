@@ -18,11 +18,11 @@ class HabitAdapter extends TypeAdapter<Habit> {
     };
     return Habit(
       habitName: fields[0] as String,
-      habitCreated: fields[5] as DateTime?,
+      habitCreated: fields[5] as dynamic,
       days: (fields[1] as List).cast<Days>(),
       isCompleted: fields[2] as bool,
+      habitCompletions: (fields[4] as List).cast<DateTime>(),
       id: fields[3] as String?,
-      habitCompletions: (fields[4] as List?)?.cast<DateTime>(),
     );
   }
 

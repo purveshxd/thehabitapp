@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:habitapp/controller/userdata.notifier.dart';
 import 'package:habitapp/localStorage/user_storage.dart';
-import 'package:habitapp/models/user_data.model.dart';
+import 'package:habitapp/pages/developer.page.dart';
 import 'package:habitapp/style/style.controller.dart';
-import 'package:habitapp/widget/text_field.widget.dart';
 import 'package:habitapp/widget/theme_dialog.widget.dart';
 
 class SettingsPage extends ConsumerWidget {
@@ -95,6 +93,25 @@ class SettingsPage extends ConsumerWidget {
               iconColor: colorthemeContext(context).primary,
             ),
             const Divider(),
+            ListTile(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const DeveloperPage(),
+                    ));
+              },
+              shape: const StadiumBorder(),
+              contentPadding: const EdgeInsets.all(10),
+              dense: true,
+              visualDensity: VisualDensity.adaptivePlatformDensity,
+              title: Text(
+                "Developer",
+                style: textthemeContext(context).headlineSmall,
+              ),
+              trailing: const Icon(Icons.arrow_forward_ios_rounded),
+              // iconColor: colorthemeContext(context).primary,
+            ),
             // Row(
             //   mainAxisAlignment: MainAxisAlignment.center,
             //   crossAxisAlignment: CrossAxisAlignment.center,

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitapp/constants/components.dart';
 import 'package:habitapp/models/habit.model.dart';
 import 'package:habitapp/controller/habit.notifier.dart';
+import 'package:habitapp/style/style.controller.dart';
 
 class HabitDetailsPage extends ConsumerWidget {
   final Habit habit;
@@ -11,6 +12,16 @@ class HabitDetailsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    dateMapFunction() {
+      Map<DateTime, int> dateDone = {};
+      for (var element in habit.habitCompletions) {
+        final newElement = {element: 1};
+        dateDone.addAll(newElement);
+      }
+      print(dateDone);
+      return dateDone;
+    }
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -72,33 +83,24 @@ class HabitDetailsPage extends ConsumerWidget {
                   const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
-              Container(
-                clipBehavior: Clip.hardEdge,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surfaceVariant,
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: HeatMap(
-                  colorMode: ColorMode.opacity,
-                  showText: false,
-                  size: 35,
-                  datasets: {
-                    DateTime(2023, 1, 6): 50,
-                    DateTime(2023, 1, 7): 7,
-                    DateTime(2023, 1, 8): 10,
-                    DateTime(2023, 1, 9): 13,
-                    DateTime(2023, 1, 13): 6,
-                    DateTime(2023, 12, 6): 60,
-                  },
-                  scrollable: true,
-                  colorsets: {
-                    1: Theme.of(context).colorScheme.primaryContainer,
-                  },
-                  onClick: (value) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(value.toString())));
-                  },
-                ),
+              HeatMap(
+                startDate: habit.habitCreated,
+                colorMode: ColorMode.color,
+                showText: false,
+                size: 35,
+                datasets: dateMapFunction(),
+                scrollable: true,
+                colorsets: {
+                  1: Colors.green.shade600,
+                  
+                },
+                defaultColor: colorthemeContext(context).errorContainer,
+                // defaultColor: colorthemeContext(context),
+                showColorTip: false,
+                onClick: (value) {
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(SnackBar(content: Text(value.toString())));
+                },
               )
             ],
           ),

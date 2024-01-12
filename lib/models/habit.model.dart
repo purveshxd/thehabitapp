@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
@@ -20,18 +19,18 @@ class Habit {
   @HiveField(3)
   final String id;
   @HiveField(4)
-  final List<DateTime>? habitCompletions;
+  final List<DateTime> habitCompletions;
   @HiveField(5)
-  final DateTime? habitCreated;
+  final DateTime habitCreated;
 
-  Habit(
-      {required this.habitName,
-      this.habitCreated,
-      required this.days,
-      this.isCompleted = false,
-      String? id,
-      this.habitCompletions})
-      : id = id ?? uuid.v4();
+  Habit({
+    required this.habitName,
+    required this.habitCreated,
+    required this.days,
+    this.isCompleted = false,
+    required this.habitCompletions,
+    String? id,
+  }) : id = id ?? uuid.v4();
   // final DateTime dateCreated = DateTime.now();
 
   Habit copyWith({
@@ -39,8 +38,11 @@ class Habit {
     List<Days>? days,
     bool? isCompleted,
     String? id,
+    List<DateTime>? habitCompletions,
   }) {
     return Habit(
+        habitCreated: habitCreated,
+        habitCompletions: habitCompletions ?? this.habitCompletions,
         habitName: habitName ?? this.habitName,
         days: days ?? this.days,
         isCompleted: isCompleted ?? this.isCompleted,
@@ -57,6 +59,8 @@ class Habit {
 
   factory Habit.fromMap(Map<String, dynamic> map) {
     return Habit(
+      habitCreated: map['habitCreated'] as DateTime,
+      habitCompletions: map['habitCompletions'] as List<DateTime>,
       habitName: map['habitName'] as String,
       days: List<Days>.from(map['days'] as List<Days>),
       isCompleted: map['isCompleted'] as bool,
