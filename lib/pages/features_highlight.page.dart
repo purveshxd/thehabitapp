@@ -32,8 +32,10 @@ class FeatureHighlightScreen extends ConsumerWidget {
         onPressed: () {
           if (pageController.page == 1) {
             if (textController.text.trim().isNotEmpty) {
-              UserStorage().setUsername(textController.text.trim(),);
-
+              UserStorage().setUsername(
+                textController.text.trim(),
+              );
+              UserStorage().setDateJoined(DateTime.now());
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
                   builder: (context) => Homepage(),

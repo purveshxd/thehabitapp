@@ -74,6 +74,11 @@ class SettingsPage extends ConsumerWidget {
           children: [
             const SizedBox(height: 10),
             const Divider(),
+
+            Text(ref
+                .watch(habitStateNotifierProvider)[0]
+                .habitCreated
+                .toString()),
             ListTile(
               onTap: () {
                 showDialog(
@@ -81,16 +86,17 @@ class SettingsPage extends ConsumerWidget {
                   builder: (context) => const ThemeDialog(),
                 );
               },
-              shape: const StadiumBorder(),
+
+              // shape: const StadiumBorder(),
               contentPadding: const EdgeInsets.all(10),
               dense: true,
               visualDensity: VisualDensity.adaptivePlatformDensity,
               title: Text(
-                "Color",
+                "Theme Color",
                 style: textthemeContext(context).headlineSmall,
               ),
-              trailing: const CircleAvatar(),
-              iconColor: colorthemeContext(context).primary,
+              trailing: CircleAvatar(backgroundColor: ref.watch(currentColor)),
+              // iconColor: colorthemeContext(context).primary,
             ),
             const Divider(),
             ListTile(

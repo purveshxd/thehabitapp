@@ -18,7 +18,7 @@ class UserDataModelAdapter extends TypeAdapter<UserDataModel> {
     };
     return UserDataModel(
       userJoined: fields[0] as DateTime?,
-      userName: fields[1] as String,
+      userName: fields[1] as String?,
       themeMode: fields[2] as int?,
       colorIndex: fields[3] as int?,
     );
