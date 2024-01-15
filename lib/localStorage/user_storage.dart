@@ -36,7 +36,6 @@ class UserStorage {
 
   String getUsername() {
     final data = box.get('userName');
-    print(data);
     return data.toString();
   }
 }

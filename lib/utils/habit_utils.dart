@@ -57,16 +57,9 @@ class HabitUtils {
 giveWeekDates() {
   final List<DateTime> weekList = [];
   final date = DateTime.now();
-  print(date);
   for (var i = 0; i < 7; i++) {
-    print(
-      date.add(
-        Duration(days: i),
-      ),
-    );
     weekList.add(date.add(Duration(days: i)));
   }
-  print(weekList);
   return weekList;
 }
 
@@ -85,18 +78,11 @@ extension DateTimeExtension on DateTime {
 }
 
 timepass() {
-  print(DateTime.now().day / 7);
 
   if (DateTime.now().weekday == DateTime.monday) {
     final List<DateTime> weekList = [];
     final date = DateTime.now();
-    print(date);
     for (var i = 0; i < 7; i++) {
-      print(
-        date.add(
-          Duration(days: i),
-        ),
-      );
       weekList.add(date.add(Duration(days: i)));
     }
   }else{

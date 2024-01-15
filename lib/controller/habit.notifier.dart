@@ -16,7 +16,7 @@ class HabitStateNotifier extends StateNotifier<List<Habit>> {
   loadHabits() {
     _localStorage.loadHabitList();
     final habitList = _localStorage.habitList;
-    print(habitList);
+    // print(habitList);
     state = [...habitList];
   }
 
@@ -27,7 +27,9 @@ class HabitStateNotifier extends StateNotifier<List<Habit>> {
 
   toggleHabitsComplete(String id) {
     _localStorage.toggleHabitComplete(id);
+
     
+
     loadHabits();
   }
 

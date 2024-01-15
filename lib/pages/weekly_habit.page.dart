@@ -9,7 +9,6 @@ import 'package:intl/intl.dart';
 
 final selectedDayProvider = StateProvider<Days>((ref) {
   final formattedDate = DateFormat('E').format(DateTime.now());
-  print(formattedDate);
 
   return Days.values
       .firstWhere((element) => element.name == formattedDate.toLowerCase());
@@ -21,13 +20,9 @@ class WeeklyHabitPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     bool dayHabit(Habit habit, Days days) {
-      print(habit);
       return habit.days.contains(days);
     }
 
-    isDaysHabit() {
-      print(ref.watch(habitStateNotifierProvider.notifier));
-    }
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,

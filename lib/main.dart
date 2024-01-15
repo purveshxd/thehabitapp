@@ -8,6 +8,7 @@ import 'package:habitapp/pages/welcome.page.dart';
 import 'package:habitapp/style/style.controller.dart';
 import 'package:hive_flutter/adapters.dart';
 
+var preDate = DateTime(1977);
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
@@ -15,9 +16,15 @@ void main() async {
   Hive.registerAdapter(DaysAdapter());
   Hive.registerAdapter(UserDataModelAdapter());
   await Hive.openBox('habitStorage');
-
   runApp(const ProviderScope(child: MyApp()));
 }
+
+// final preDateProvider = StateProvider<DateTime>((ref) {
+//   // final box = Hive.box('habitStorage');
+//   // final date = box.get('last-open');
+//   // return DateTime.parse(date);
+//   return DateTime(1977);
+// });
 
 class MyApp extends ConsumerStatefulWidget {
   const MyApp({super.key});
@@ -28,6 +35,19 @@ class MyApp extends ConsumerStatefulWidget {
 
 class _MyAppState extends ConsumerState<MyApp> {
   final box = Hive.box('habitStorage');
+
+  @override
+  void initState() {
+    final today = DateTime.now();
+    preDate = DateTime.parse(box.get('last-open',
+        defaultValue: DateTime(today.year, today.month, today.day).toString()));
+    // ref.watch(preDateProvider.notifier).update((state) => previousDate);
+    debugPrint('Last open - $preDate');
+    // debugPrint('Last open - ${ref.watch(preDateProvider)}');
+    super.initState();
+    box.put(
+        'last-open', DateTime(today.year, today.month, today.day).toString());
+  }
 
   @override
   Widget build(BuildContext context) {

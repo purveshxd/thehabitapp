@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:habitapp/models/habit.model.dart';
 import 'package:habitapp/pages/habitdetails.page.dart';
 
@@ -19,6 +22,7 @@ class HabitTile extends StatelessWidget {
             flex: 5,
             child: FilledButton.tonal(
               onPressed: () {
+                debugPrint('Loading habit');
                 // navigates to a details page of habit
                 showDialog(
                   context: context,

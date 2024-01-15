@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitapp/utils/habit_utils.dart';
 import 'package:habitapp/models/habit.model.dart';
@@ -35,6 +36,8 @@ class HabitList extends ConsumerWidget {
     final habitController = HabitUtils(habitList: habitList);
 
     markHabitDone(Habit markHabit) {
+      HapticFeedback.vibrate();
+
       ref
           .watch(habitStateNotifierProvider.notifier)
           .toggleHabitsComplete(markHabit.id);
@@ -55,11 +58,8 @@ class HabitList extends ConsumerWidget {
               itemBuilder: (context, index) {
                 if (HabitUtils(habitList: habitList).isTodayHabit(index) &&
                     !habitList[index].isCompleted) {
-                  // print(habit[index]);
                   return HabitTile(
                     toggleControl: () {
-                      // confettiWorking();
-
                       markHabitDone(habitList[index]);
                     },
                     habit: habitList[index],

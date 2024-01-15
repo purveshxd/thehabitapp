@@ -6,7 +6,6 @@ import 'package:habitapp/pages/weekly_habit.page.dart';
 import 'package:habitapp/pages/settings.page.dart';
 import 'package:habitapp/pages/todayshabit.page.dart';
 import 'package:habitapp/style/style.controller.dart';
-import 'package:intl/intl.dart';
 
 final currentPageProvider = StateProvider((ref) => 0);
 
@@ -49,8 +48,6 @@ class Homepage extends ConsumerWidget {
           : FloatingActionButton.extended(
               label: const Text("Add Habit"),
               onPressed: () {
-                final date = DateTime.now();
-                print(DateFormat('y-M-dd').format(date));
 
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => const AddHabitPage(),

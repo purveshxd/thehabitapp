@@ -1,3 +1,8 @@
+import 'dart:developer';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:habitapp/main.dart';
 import 'package:habitapp/models/habit.model.dart';
 import 'package:hive/hive.dart';
 
@@ -40,51 +45,61 @@ class HabitStorage {
         isCompleted: false,
       ),
     ];
-    print("initial == ${habitList}");
   }
-
-  // dynamic getDateJoined() {
-  //   final dateJoined = box.get('dateJoined');
-  //   return dateJoined;
-  // }
 
 // get the habit list from localStorage
   void getHabitList() {
-    final habits = box.get('HABITS');
-
-    final habitListTemp = (habits as List).map((e) => e as Habit).toList();
-    // resetHabit();
-    // habitList = resetHabit();
-    habitList = habitListTemp;
-    // print("get == ${habitList}");
+    // previous date saved from database
+    final today = DateTime.now();
+    // var previousDate = DateTime.parse(box.get('last-open'));
+    debugPrint(preDate.toString());
+    // var previousDate = DateTime(2024, 01, 15);
+    // var previousDate = DateTime(2024, 01, 15);
+    // previousDate ??= DateTime.now();
+    // diff in days
+    final difference =
+        DateTime(today.year, today.month, today.day).difference(preDate).inDays;
+    // check if the day is After the date today
+    // final isAfterDay = previousDate.isAfter(DateTime.now());
+    debugPrint(difference.toString());
+    if (difference > 0) {
+      debugPrint("Entered Reset");
+      resetHabit();
+    } else {
+      final habits = box.get('HABITS');
+      final habitListTemp = (habits as List).map((e) => e as Habit).toList();
+      habitList = habitListTemp;
+    }
   }
 
-  // List<Habit> resetHabit() {
-  //   final habits = box.get('HABITS');
-  //   List<Habit> newList = [];
-  //   final habitListTemp = (habits as List).map((e) => e as Habit).toList();
-  //   final today = DateTime.now();
+  void resetHabit() {
+    // new list
+    List<Habit> newList = [];
 
-  //   for (var i = 0; i < habitListTemp.length; i++) {
-  //     final habit = habitListTemp[i];
-  //     if (habit.isCompleted == true &&
-  //         habit.habitCompletions.last ==
-  //             DateTime(today.year, today.month, today.day)) {
-  //       final newHabit = habit.copyWith(isCompleted: false);
-  //       newList.add(newHabit);
-  //     } else {
-  //       newList.add(habit);
-  //       // newList.add(habit);
-  //     }
-  //   }
-  //   return newList;
-  // }
+// get habitList from storage
+    var habits = box.get('HABITS');
+    var habitListTemp = (habits as List).map((e) => e as Habit).toList();
+    debugPrint("before change List - ${habitListTemp}");
+
+    for (var element in habitListTemp) {
+      debugPrint("indv habit before change - ${element}");
+      final newHabit = element.copyWith(isCompleted: false);
+      debugPrint("indv habit after change - ${newHabit}");
+      newList.add(newHabit);
+    }
+    debugPrint("new List - ${newList}");
+    box.put("HABITS", newList);
+
+    habits = box.get('HABITS');
+    habitListTemp = (habits as List).map((e) => e as Habit).toList();
+    debugPrint("before change List - ${habitListTemp}");
+    habitList = habitListTemp;
+  }
 
 // add habit to the local storage
   addHabit(Habit habit) {
     habitList.add(habit);
     box.put("HABITS", habitList);
-    print(habit.id);
   }
 
   deleteHabit(String id) {
@@ -93,19 +108,15 @@ class HabitStorage {
   }
 
   toggleHabitComplete(String id) {
-    // final habitList = getHabitList();
-    // print(id);
-
     final index = habitList.indexWhere((element) => element.id == id);
     final habit = habitList.firstWhere((element) => element.id == id);
 
-    // print("OLD ID${habit.id}");
     if (index != -1) {
       final updatedHabit = habit.copyWith(isCompleted: !habit.isCompleted);
       final listDone = _toggleDateDone(updatedHabit);
       final newHabit = updatedHabit.copyWith(habitCompletions: listDone);
       habitList.removeAt(index);
-      habitList.insert(index, updatedHabit);
+      habitList.insert(index, newHabit);
       box.put("HABITS", habitList);
     }
   }
@@ -113,13 +124,14 @@ class HabitStorage {
   List<DateTime> _toggleDateDone(Habit habit) {
     List<DateTime> datesDone = habit.habitCompletions;
     final today = DateTime.now();
-    print(today);
+    final date = DateTime(today.year, today.month, today.day);
     if (habit.isCompleted) {
-      datesDone.add(DateTime(today.year, today.month, today.day));
+      datesDone.add(date);
     } else {
-      datesDone.removeLast();
+      datesDone.removeWhere(
+        (element) => element == date,
+      );
     }
-    print(datesDone);
     return datesDone;
   }
 }
