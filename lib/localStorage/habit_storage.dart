@@ -21,7 +21,6 @@ class HabitStorage {
       Habit(
         habitName: "This is Kaizen, a habit tracker app",
         days: Days.values,
-       
         isCompleted: false,
         habitCreated: DateTime(2023, 11, 5),
         habitCompletions: [
@@ -54,9 +53,32 @@ class HabitStorage {
     final habits = box.get('HABITS');
 
     final habitListTemp = (habits as List).map((e) => e as Habit).toList();
+    // resetHabit();
+    // habitList = resetHabit();
     habitList = habitListTemp;
-    print("get == ${habitList}");
+    // print("get == ${habitList}");
   }
+
+  // List<Habit> resetHabit() {
+  //   final habits = box.get('HABITS');
+  //   List<Habit> newList = [];
+  //   final habitListTemp = (habits as List).map((e) => e as Habit).toList();
+  //   final today = DateTime.now();
+
+  //   for (var i = 0; i < habitListTemp.length; i++) {
+  //     final habit = habitListTemp[i];
+  //     if (habit.isCompleted == true &&
+  //         habit.habitCompletions.last ==
+  //             DateTime(today.year, today.month, today.day)) {
+  //       final newHabit = habit.copyWith(isCompleted: false);
+  //       newList.add(newHabit);
+  //     } else {
+  //       newList.add(habit);
+  //       // newList.add(habit);
+  //     }
+  //   }
+  //   return newList;
+  // }
 
 // add habit to the local storage
   addHabit(Habit habit) {
@@ -76,12 +98,12 @@ class HabitStorage {
 
     final index = habitList.indexWhere((element) => element.id == id);
     final habit = habitList.firstWhere((element) => element.id == id);
-    final listDone = _toggleDateDone(habit);
+
     // print("OLD ID${habit.id}");
     if (index != -1) {
-      final updatedHabit = habit.copyWith(
-          isCompleted: !habit.isCompleted, habitCompletions: listDone);
-      // print("NEw ID${updatedHabit.id}");
+      final updatedHabit = habit.copyWith(isCompleted: !habit.isCompleted);
+      final listDone = _toggleDateDone(updatedHabit);
+      final newHabit = updatedHabit.copyWith(habitCompletions: listDone);
       habitList.removeAt(index);
       habitList.insert(index, updatedHabit);
       box.put("HABITS", habitList);
@@ -90,8 +112,10 @@ class HabitStorage {
 
   List<DateTime> _toggleDateDone(Habit habit) {
     List<DateTime> datesDone = habit.habitCompletions;
-    if (!habit.isCompleted) {
-      datesDone.add(DateTime.now());
+    final today = DateTime.now();
+    print(today);
+    if (habit.isCompleted) {
+      datesDone.add(DateTime(today.year, today.month, today.day));
     } else {
       datesDone.removeLast();
     }

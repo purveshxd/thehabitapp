@@ -36,6 +36,7 @@ class DailyProgressWidget extends StatelessWidget {
           child: SizedBox.square(
             dimension: MediaQuery.of(context).size.width / 5,
             child: CircularProgressIndicator(
+              
               value: habitController.completedHabit(habit) /
                   habitController.totalHabit(habit),
               strokeCap: StrokeCap.round,

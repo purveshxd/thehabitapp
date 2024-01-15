@@ -58,9 +58,11 @@ class TodaysHabitPage extends ConsumerWidget {
                 ),
                 FilledButton.tonal(
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const AddHabitPage(),
-                      ));
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const AddHabitPage(),
+                        ),
+                      );
                     },
                     child: const Text("Create Habit"))
               ],
