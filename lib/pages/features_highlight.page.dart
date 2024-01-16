@@ -125,7 +125,7 @@ class FeatureHighlightScreen extends ConsumerWidget {
         const SizedBox(height: 12),
         MyTextField(
           habitNameController: textController,
-          autoFocus: false,
+          autoFocus: true,
           hintText: "Name",
         ),
       ],

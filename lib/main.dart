@@ -19,13 +19,6 @@ void main() async {
   runApp(const ProviderScope(child: MyApp()));
 }
 
-// final preDateProvider = StateProvider<DateTime>((ref) {
-//   // final box = Hive.box('habitStorage');
-//   // final date = box.get('last-open');
-//   // return DateTime.parse(date);
-//   return DateTime(1977);
-// });
-
 class MyApp extends ConsumerStatefulWidget {
   const MyApp({super.key});
 
@@ -38,15 +31,19 @@ class _MyAppState extends ConsumerState<MyApp> {
 
   @override
   void initState() {
+    super.initState();
     final today = DateTime.now();
     preDate = DateTime.parse(box.get('last-open',
         defaultValue: DateTime(today.year, today.month, today.day).toString()));
-    // ref.watch(preDateProvider.notifier).update((state) => previousDate);
     debugPrint('Last open - $preDate');
-    // debugPrint('Last open - ${ref.watch(preDateProvider)}');
-    super.initState();
+    // resetting the last open date
+    // final today = DateTime.now();
     box.put(
         'last-open', DateTime(today.year, today.month, today.day).toString());
+
+    debugPrint(
+        "UPDATED - DATETIME ${DateTime.parse(box.get('last-open')).toString()}");
+
   }
 
   @override

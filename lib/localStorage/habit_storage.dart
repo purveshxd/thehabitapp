@@ -63,7 +63,6 @@ class HabitStorage {
     // final isAfterDay = previousDate.isAfter(DateTime.now());
     debugPrint(difference.toString());
     if (difference > 0) {
-      debugPrint("Entered Reset");
       resetHabit();
     } else {
       final habits = box.get('HABITS');
@@ -73,27 +72,35 @@ class HabitStorage {
   }
 
   void resetHabit() {
+    debugPrint("Entered Reset");
     // new list
     List<Habit> newList = [];
 
 // get habitList from storage
     var habits = box.get('HABITS');
     var habitListTemp = (habits as List).map((e) => e as Habit).toList();
-    debugPrint("before change List - ${habitListTemp}");
+    // debugPrint("before change List - ${habitListTemp}");
 
     for (var element in habitListTemp) {
-      debugPrint("indv habit before change - ${element}");
+      // debugPrint("indv habit before change - ${element}");
       final newHabit = element.copyWith(isCompleted: false);
-      debugPrint("indv habit after change - ${newHabit}");
+      // debugPrint("indv habit after change - ${newHabit}");
       newList.add(newHabit);
     }
-    debugPrint("new List - ${newList}");
+    // debugPrint("new List - ${newList}");
     box.put("HABITS", newList);
 
     habits = box.get('HABITS');
     habitListTemp = (habits as List).map((e) => e as Habit).toList();
-    debugPrint("before change List - ${habitListTemp}");
+    // debugPrint("before change List - ${habitListTemp}");
     habitList = habitListTemp;
+    final today = DateTime.now();
+
+    box.put(
+        'last-open', DateTime(today.year, today.month, today.day).toString());
+    preDate = DateTime.parse(box.get('last-open'));
+
+    debugPrint("EXIT PRINT");
   }
 
 // add habit to the local storage
