@@ -1,14 +1,17 @@
 // dateFormatter
 import 'package:intl/intl.dart';
 
-
-
 String dateFormatter(DateTime date) {
   // final date = DateTime.now();
   final formattedDate = DateFormat('dd-E').format(date);
   // print(DateTime.now().day / 7);
   // print(DateTime.now().weekOfMonth);
   // print(formattedDate);
+  return formattedDate;
+}
+
+String startDateFormat(DateTime date) {
+  final formattedDate = DateFormat('dd/M/yy').format(date);
   return formattedDate;
 }
 
