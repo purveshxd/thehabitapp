@@ -43,7 +43,6 @@ class _MyAppState extends ConsumerState<MyApp> {
 
     debugPrint(
         "UPDATED - DATETIME ${DateTime.parse(box.get('last-open')).toString()}");
-
   }
 
   @override

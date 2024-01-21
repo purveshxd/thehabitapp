@@ -29,7 +29,7 @@ bool isToday(DateTime date) {
 }
 
 extension StringExtension on String {
-  String capitalize() {
+  String? capitalize() {
     return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
   }
 }

@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitapp/main.dart';
 import 'package:habitapp/models/habit.model.dart';
 import 'package:hive/hive.dart';
@@ -35,11 +32,15 @@ class HabitStorage {
           DateTime(2023, 11, 8),
           DateTime(2023, 11, 9),
           DateTime(2023, 11, 10),
+          DateTime(2024, 01, 19),
+          DateTime(2024, 01, 18),
         ],
       ),
       Habit(
         habitCreated: DateTime(2023, 12, 5),
-        habitCompletions: [],
+        habitCompletions: [
+          DateTime(2024, 01, 19),
+        ],
         habitName: "Example habit, try to tap on the tick mark",
         days: Days.values,
         isCompleted: false,

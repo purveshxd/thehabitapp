@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -5,6 +7,7 @@ import 'package:habitapp/constants/components.dart';
 import 'package:habitapp/models/habit.model.dart';
 import 'package:habitapp/controller/habit.notifier.dart';
 import 'package:habitapp/style/style.controller.dart';
+import 'package:habitapp/widget/weekly_calendar.dart';
 
 class HabitDetailsPage extends ConsumerWidget {
   final Habit habit;
@@ -12,6 +15,48 @@ class HabitDetailsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    List<DateTime> giveDateRange() {
+      final dateNow = DateTime.now();
+      // gives first day of the particular week
+      final weekfirstDay =
+          dateNow.subtract(Duration(days: dateNow.weekday - 1));
+      final List<DateTime> weekList = [];
+
+      for (var i = 0; i < 7; i++) {
+        weekList.add(
+          weekfirstDay.add(
+            Duration(days: i),
+          ),
+        );
+      }
+      return weekList;
+    }
+
+    // List<bool> getBoolList() {
+    //   final weekList = giveDateRange();
+    //   // final List<bool> habitCompleteBool = [];
+    //   final savedDate = habit.habitCompletions;
+    //   final list = List.generate(7, (index) => false);
+    //   final List<DateTime> listDate = List.generate(7, (index) {
+    //     return savedDate ? DateTime(1997) : savedDate[index];
+    //   });
+    //   for (var i = 0; i < 7; i++) {
+    //     if (DateTime(listDate[i].year, listDate[i].month, listDate[i].day) ==
+    //         DateTime(weekList[i].year, weekList[i].month, weekList[i].day)) {
+    //       // habitCompleteBool.add(true);
+    //       list.removeAt(i);
+    //       list.insert(i, true);
+    //       debugPrint("TRUE");
+    //       // return true;
+    //     }
+    //     // return false;
+    //   }
+
+    //   return list;
+    // }
+
+    // final List<bool> listBool = getBoolList();
+
     dateMapFunction() {
       Map<DateTime, int> dateDone = {};
       for (var element in habit.habitCompletions) {
@@ -73,8 +118,8 @@ class HabitDetailsPage extends ConsumerWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 10),
-          child: Column(
-            // shrinkWrap: true,
+          child: ListView(
+            shrinkWrap: true,
             children: [
               Container(
                 padding: const EdgeInsets.all(15),
@@ -83,93 +128,110 @@ class HabitDetailsPage extends ConsumerWidget {
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Text(
-                  habit.habitName.capitalize(),
+                  habit.habitName.capitalize()!,
                   style: (Theme.of(context).textTheme.headlineMedium)!.merge(
                     const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 10,
-                  bottom: 10,
+              Row(
+                // shrinkWrap: true,
+                children: [
+                  Flexible(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 10.0, bottom: 10, right: 5),
+                      child: ListTile(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15)),
+                        tileColor: colorthemeContext(context).tertiaryContainer,
+                        title: const Text("Reminder"),
+                        trailing: const Icon(Icons.notifications_rounded),
+                        subtitle: Text(startDateFormat(habit.habitCreated)),
+                      ),
+                    ),
+                  ),
+                  Flexible(
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(top: 10.0, bottom: 10, left: 5),
+                      child: ListTile(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15)),
+                        tileColor: colorthemeContext(context).tertiaryContainer,
+                        title: const Text("Habit Start"),
+                        trailing: const Icon(Icons.calendar_today),
+                        subtitle: Text(startDateFormat(habit.habitCreated)),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Container(
+                padding: const EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                  color: colorthemeContext(context).tertiaryContainer,
+                  borderRadius: BorderRadius.circular(15),
                 ),
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 10),
-                      padding: const EdgeInsets.all(15),
-                      decoration: BoxDecoration(
-                        color: colorthemeContext(context).tertiaryContainer,
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Start Date",
-                            style:
-                                (Theme.of(context).textTheme.labelLarge)!.merge(
-                              const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          // const SizedBox(height: 3),
-                          Text(startDateFormat(habit.habitCreated)),
-                        ],
+                    Text(
+                      "This week",
+                      style: (Theme.of(context).textTheme.labelLarge)!.merge(
+                        const TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
-                    Container(
-                      padding: const EdgeInsets.all(15),
-                      decoration: BoxDecoration(
-                        color: colorthemeContext(context).tertiaryContainer,
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "This week",
-                            style:
-                                (Theme.of(context).textTheme.labelLarge)!.merge(
-                              const TextStyle(fontWeight: FontWeight.bold),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        for (var i = 0; i < 7; i++)
+                          Flexible(
+                            child: IconButton.filledTonal(
+                              style: IconButton.styleFrom(
+                                  // backgroundColor: listBool[i]
+                                  //     ? Colors.green
+                                  backgroundColor:
+                                      colorthemeContext(context).primary,
+                                  shape: const StadiumBorder()),
+                              onPressed: () {},
+                              icon: Text(
+                                Days.values[i].name[0].capitalize()!,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: colorthemeContext(context).onPrimary,
+                                ),
+                              ),
                             ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              for (var element in Days.values)
-                                Container(
-                                  padding: const EdgeInsets.all(8),
-                                  decoration: BoxDecoration(
-                                    color: colorthemeContext(context)
-                                        .onTertiaryContainer,
-                                    shape: BoxShape.circle,
-
-                                    // borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Text(
-                                    element.name[0].capitalize(),
-                                    style: TextStyle(
-                                        color: colorthemeContext(context)
-                                            .onTertiary),
-                                  ),
-                                )
-                            ],
                           )
-                        ],
-                      ),
-                    ),
+                        // Container(
+                        //   padding: const EdgeInsets.all(10),
+                        //   decoration: BoxDecoration(
+                        //     color: colorthemeContext(context)
+                        //         .onTertiaryContainer,
+                        //     // shape: BoxShape.circle,
+
+                        //     borderRadius: BorderRadius.circular(15),
+                        //   ),
+                        //   child: Text(
+                        //     element.name[0].capitalize(),
+                        //     style: TextStyle(
+                        //         color: colorthemeContext(context).onTertiary),
+                        //   ),
+                        // )
+                      ],
+                    )
                   ],
                 ),
               ),
               HeatMap(
                 startDate: habit.habitCreated,
+                endDate: ref.watch(weekProvider).last,
                 colorMode: ColorMode.color,
                 showText: true,
                 textColor: colorthemeContext(context).onErrorContainer,
@@ -181,8 +243,8 @@ class HabitDetailsPage extends ConsumerWidget {
                   1: Colors.green.shade600,
                 },
                 defaultColor: colorthemeContext(context).errorContainer,
-                // defaultColor: colorthemeContext(context),
                 showColorTip: false,
+                
                 onClick: (value) {
                   ScaffoldMessenger.of(context)
                       .showSnackBar(SnackBar(content: Text(value.toString())));

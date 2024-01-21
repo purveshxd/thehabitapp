@@ -1,17 +1,60 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:habitapp/constants/components.dart';
 import 'package:habitapp/models/habit.model.dart';
 import 'package:habitapp/pages/habitdetails.page.dart';
+import 'package:habitapp/style/style.controller.dart';
+import 'package:habitapp/widget/weekly_calendar.dart';
+import 'package:intl/intl.dart';
 
-class HabitTile extends StatelessWidget {
+class HabitTile extends ConsumerWidget {
   final Habit habit;
+  final String? day;
   final void Function()? toggleControl;
-  const HabitTile({super.key, required this.habit, this.toggleControl});
+  final bool isWeeklyTile;
+
+  const HabitTile({
+    super.key,
+    required this.habit,
+    this.toggleControl,
+    required this.isWeeklyTile,
+    this.day,
+  });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+/*
+
+
+
+
+*/
+    bool isHabitComplete() {
+      final currentWeek = ref.watch(weekProvider);
+      final firstDateofWeek = currentWeek.first;
+      List<Map<String, bool>> habitDoneList = [];
+
+      final dateList = habit.habitCompletions.where((element) {
+        if (DateTime(element.year, element.month, element.day) ==
+                DateTime(firstDateofWeek.year, firstDateofWeek.month,
+                    firstDateofWeek.day) ||
+            DateTime(element.year, element.month, element.day).isAfter(
+              DateTime(firstDateofWeek.year, firstDateofWeek.month,
+                  firstDateofWeek.day),
+            )) {
+          return true;
+        } else {
+          return false;
+        }
+      }).toList();
+      final List<String> daysList = dateList.map((date) {
+        final formattedDate = DateFormat('E').format(date).toLowerCase();
+        return formattedDate;
+      }).toList();
+
+      return daysList.contains(day);
+    }
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
@@ -41,7 +84,7 @@ class HabitTile extends StatelessWidget {
                   ),
                 );
 
-                Future.delayed(const Duration(seconds: 1), () {
+                Future.delayed(const Duration(milliseconds: 500), () {
                   Navigator.pop(context);
                   Navigator.push(
                     context,
@@ -52,10 +95,16 @@ class HabitTile extends StatelessWidget {
                 });
               },
               style: FilledButton.styleFrom(
+                backgroundColor: isWeeklyTile
+                    ? isHabitComplete()
+                        ? Colors.green
+                        : null
+                    : colorthemeContext(context).secondaryContainer,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15),
                 ),
                 padding: const EdgeInsets.all(10),
+                // backgroundColor:
               ),
               child: Padding(
                 padding: const EdgeInsets.all(10.0),

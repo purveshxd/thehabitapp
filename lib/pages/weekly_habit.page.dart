@@ -23,7 +23,6 @@ class WeeklyHabitPage extends ConsumerWidget {
       return habit.days.contains(days);
     }
 
-
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,6 +54,8 @@ class WeeklyHabitPage extends ConsumerWidget {
                 if (dayHabit(ref.watch(habitStateNotifierProvider)[index],
                     ref.watch(selectedDayProvider))) {
                   return HabitTile(
+                      day: ref.watch(selectedDayProvider).name,
+                      isWeeklyTile: true,
                       habit: ref.watch(habitStateNotifierProvider)[index]);
                 } else {
                   return Container();

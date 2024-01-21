@@ -59,6 +59,7 @@ class HabitList extends ConsumerWidget {
                 if (HabitUtils(habitList: habitList).isTodayHabit(index) &&
                     !habitList[index].isCompleted) {
                   return HabitTile(
+                    isWeeklyTile: false,
                     toggleControl: () {
                       markHabitDone(habitList[index]);
                     },
@@ -128,6 +129,7 @@ class HabitList extends ConsumerWidget {
                 if (HabitUtils(habitList: habitList).isTodayHabit(index) &&
                     habitList[index].isCompleted) {
                   return HabitTile(
+                    isWeeklyTile: false,
                     toggleControl: () {
                       markHabitDone(habitList[index]);
                     },
