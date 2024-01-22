@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
@@ -15,22 +14,6 @@ class HabitDetailsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    List<DateTime> giveDateRange() {
-      final dateNow = DateTime.now();
-      // gives first day of the particular week
-      final weekfirstDay =
-          dateNow.subtract(Duration(days: dateNow.weekday - 1));
-      final List<DateTime> weekList = [];
-
-      for (var i = 0; i < 7; i++) {
-        weekList.add(
-          weekfirstDay.add(
-            Duration(days: i),
-          ),
-        );
-      }
-      return weekList;
-    }
 
     // List<bool> getBoolList() {
     //   final weekList = giveDateRange();

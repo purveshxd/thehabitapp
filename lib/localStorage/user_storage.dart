@@ -6,7 +6,7 @@ class UserStorage {
 // UserDataModel();
   int getColor() {
     if (box.get('colorIndex') == null) {
-      box.put('colorIndex', 6);
+      box.put('colorIndex', 3);
       return box.get('colorIndex');
     } else {
       return box.get('colorIndex');

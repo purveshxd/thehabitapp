@@ -33,7 +33,7 @@ class _DaysSelectWidgetState extends State<DaysSelectWidget> {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               duration: Duration(seconds: 1),
-              content: Text("Can't select days"),
+              content: Text("Turn off switch"),
             ),
           );
         } else {

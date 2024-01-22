@@ -48,7 +48,6 @@ class Homepage extends ConsumerWidget {
           : FloatingActionButton.extended(
               label: const Text("Add Habit"),
               onPressed: () {
-
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => const AddHabitPage(),
                 ));

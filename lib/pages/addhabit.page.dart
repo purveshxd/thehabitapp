@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitapp/models/habit.model.dart';
 import 'package:habitapp/controller/habit.notifier.dart';
+import 'package:habitapp/style/style.controller.dart';
 import 'package:habitapp/widget/days_select_widget.dart';
 import 'package:habitapp/widget/submit_button.dart';
 import 'package:habitapp/widget/text_field.widget.dart';
 
 final switchValueProvider = StateProvider((ref) => false);
+final timeOfDayProvider = StateProvider((ref) => TimeOfDay.now());
 
 class AddHabitPage extends ConsumerStatefulWidget {
   const AddHabitPage({super.key});
@@ -77,6 +79,38 @@ class _AddHabitPageState extends ConsumerState<AddHabitPage> {
               ],
             ),
           ),
+          // set notification Time
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  "Select Time",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
+
+                // toggle all days selection
+                ActionChip(
+                  label: Text(ref.watch(timeOfDayProvider).format(context)),
+                  shape: const StadiumBorder(),
+                  side: BorderSide.none,
+                  backgroundColor: colorthemeContext(context).primaryContainer,
+                  onPressed: () {
+                    showTimePicker(
+                      context: context,
+                      initialTime: ref.watch(timeOfDayProvider),
+                    ).then((value) => ref
+                        .watch(timeOfDayProvider.notifier)
+                        .update((state) => value!));
+                  },
+                )
+              ],
+            ),
+          ),
 
 // weekday selection widget
           DaysSelectWidget(
@@ -86,16 +120,17 @@ class _AddHabitPageState extends ConsumerState<AddHabitPage> {
 
 // submit button
           Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6),
             child: SubmitButton(
               onPressed: () {
                 if (habitNameController.text.trim().isNotEmpty) {
                   ref.watch(habitStateNotifierProvider.notifier).addHabit(
                         Habit(
-                            habitName: habitNameController.text.trim(),
-                            days: selectedDays,
-                            habitCreated: DateTime.now(),
-                            habitCompletions: [],),
+                          habitName: habitNameController.text.trim(),
+                          days: selectedDays,
+                          habitCreated: DateTime.now(),
+                          habitCompletions: [],
+                        ),
                       );
                   Navigator.pop(context);
                   ref

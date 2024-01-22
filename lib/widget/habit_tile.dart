@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:habitapp/constants/components.dart';
 import 'package:habitapp/models/habit.model.dart';
 import 'package:habitapp/pages/habitdetails.page.dart';
 import 'package:habitapp/style/style.controller.dart';
@@ -32,7 +31,6 @@ class HabitTile extends ConsumerWidget {
     bool isHabitComplete() {
       final currentWeek = ref.watch(weekProvider);
       final firstDateofWeek = currentWeek.first;
-      List<Map<String, bool>> habitDoneList = [];
 
       final dateList = habit.habitCompletions.where((element) {
         if (DateTime(element.year, element.month, element.day) ==
@@ -115,6 +113,7 @@ class HabitTile extends ConsumerWidget {
                       habit.habitName.substring(1),
                   textAlign: TextAlign.center,
                   style: TextStyle(
+                      fontWeight: FontWeight.w600,
                       color:
                           Theme.of(context).colorScheme.onSecondaryContainer),
                 ),

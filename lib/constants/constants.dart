@@ -27,14 +27,14 @@ List socialList = [
   ["Github", "assets/logo/github.png", "https://github.com/purveshxd"],
   // ["Gmail", "assets/logo/email.png", "mailto:do.psd23@gmail.com"],
   [
+    "Linkedin",
+    "assets/logo/linkedin.png",
+    "https://www.linkedin.com/in/purveshxd/"
+  ],
+  [
     "Instagram",
     "assets/logo/instagram.png",
     "https://www.instagram.com/purveshxd/"
-  ],
-  [
-    "Linkedin",
-    "assets/logo/linkedin.png",
-    "https://www.linkedin.com/in/purveshxd/",
   ],
   [
     "X/Twitter",

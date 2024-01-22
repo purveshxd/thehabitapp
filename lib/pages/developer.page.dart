@@ -21,6 +21,7 @@ class DeveloperPage extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            const Spacer(),
             GridView.builder(
               shrinkWrap: true,
               padding: const EdgeInsets.all(35),
@@ -69,6 +70,20 @@ class DeveloperPage extends ConsumerWidget {
                   mode: LaunchMode.externalApplication,
                 );
               },
+            ),
+            const Spacer(),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text("Made in "),
+                FlutterLogo(
+                    style: FlutterLogoStyle.horizontal,
+                    size: MediaQuery.of(context).size.width / 8,
+                    textColor: colorthemeContext(context).onBackground),
+                const Text(" with ♥️😍🎉🤩😱🎊🥳")
+              ],
             )
           ],
         ),
