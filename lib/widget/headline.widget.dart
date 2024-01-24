@@ -10,16 +10,21 @@ class PageHeadline extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final headline = headlineText.split(" ");
+
+    debugPrint(headline.first);
     return RichText(
       text: TextSpan(
-        text: headline[0],
-        style: Theme.of(context).textTheme.headlineMedium,
+        text: headline.first,
+        style: (Theme.of(context).textTheme.headlineMedium)!.merge(
+          const TextStyle(fontWeight: FontWeight.bold),
+        ),
         children: [
           TextSpan(
-            text: " ${headline[1]}",
-            style: (Theme.of(context).textTheme.headlineMedium)!.merge(
-              const TextStyle(fontWeight: FontWeight.bold),
-            ),
+            text: " ${headline.last}",
+            // style: (Theme.of(context).textTheme.headlineMedium)!.merge(
+            //   const TextStyle(fontWeight: FontWeight.bold),
+            // ),
+            style: Theme.of(context).textTheme.headlineMedium,
           ),
         ],
       ),

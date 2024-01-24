@@ -7,6 +7,7 @@ import 'package:habitapp/controller/habit.notifier.dart';
 import 'package:habitapp/localStorage/habit_storage.dart';
 import 'package:habitapp/localStorage/user_storage.dart';
 import 'package:habitapp/style/style.controller.dart';
+import 'package:habitapp/widget/headline.widget.dart';
 import 'package:habitapp/widget/weekly_calendar.dart';
 
 class SummaryPage extends ConsumerWidget {
@@ -14,7 +15,18 @@ class SummaryPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    checkBrightness() => Theme.of(context).brightness == Brightness.light;
+
     final habitList = ref.watch(habitStateNotifierProvider);
+
+    startDate() {
+      final habitCreated = habitList.map((e) => e.habitCreated).toList();
+      debugPrint("BEFORE ____ ${habitCreated.toString()}");
+      habitCreated.sort();
+      // debugPrint(habitCreated.toString());
+      debugPrint("AFTER ____ ${habitCreated.toString()}");
+      return habitCreated.first;
+    }
 
     dateMapFunction() {
       Map<DateTime, int> dateDone = {};
@@ -40,36 +52,51 @@ class SummaryPage extends ConsumerWidget {
         );
 
         i++;
-        debugPrint(element.toString());
       }
-      print('********************************${dateDone}');
       return dateDone;
     }
 
+    startDate();
     return ListView(
       children: [
-        Row(
-          children: [
-            Flexible(
-              child: HeatMap(
-                startDate: DateTime.parse(UserStorage().getDateJoined()),
-                // endDate: ref.watch(weekProvider).last,
-                colorMode: ColorMode.opacity,
-                textColor: colorthemeContext(context).onBackground,
-                datasets: dateMapFunction(),
-                scrollable: true,
-                colorsets: const {
-                  1: Colors.white,
-                },
-                defaultColor: colorthemeContext(context).secondaryContainer,
-                showColorTip: true,
-                onClick: (value) {
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text(value.toString())));
-                },
+        const PageHeadline(headlineText: "Habit Summary"),
+        Container(
+          margin: const EdgeInsets.only(top: 10),
+          padding: const EdgeInsets.all(15),
+          decoration: BoxDecoration(
+            color: checkBrightness()
+                ? Colors.grey.shade300.withOpacity(.5)
+                : colorthemeContext(context).secondaryContainer,
+            // : const Color(0xFF0D1117),
+            // color: const Color(0xFF0D1117),
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Row(
+            children: [
+              Flexible(
+                child: HeatMap(
+                  startDate: startDate(),
+                  // endDate: ref.watch(weekProvider).last,
+                  colorMode: ColorMode.opacity,
+                  textColor: checkBrightness() ? Colors.black : Colors.white,
+                  size: 27,
+                  datasets: dateMapFunction(),
+                  scrollable: true,
+                  colorsets: const {
+                    1: Color(0xFF39D353),
+                  },
+                  defaultColor: checkBrightness()
+                      ? Colors.grey.shade50
+                      : colorthemeContext(context).secondary,
+                  showColorTip: false,
+                  onClick: (value) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text(value.toString())));
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     );
