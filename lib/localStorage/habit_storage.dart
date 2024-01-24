@@ -34,12 +34,14 @@ class HabitStorage {
           DateTime(2023, 11, 10),
           DateTime(2024, 01, 19),
           DateTime(2024, 01, 18),
+          DateTime(2024, 01, 22),
         ],
       ),
       Habit(
         habitCreated: DateTime(2023, 12, 5),
         habitCompletions: [
           DateTime(2024, 01, 19),
+          DateTime(2024, 01, 22),
         ],
         habitName: "Example habit, try to tap on the tick mark",
         days: Days.values,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habitapp/style/style.controller.dart';
 import 'package:habitapp/utils/habit_utils.dart';
 
 import 'package:habitapp/models/habit.model.dart';
@@ -12,6 +13,9 @@ class DailyProgressWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final habitController = HabitUtils(habitList: habit);
+    debugPrint((habitController.completedHabit(habit) /
+            habitController.totalHabit(habit))
+        .toString());
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -35,13 +39,29 @@ class DailyProgressWidget extends StatelessWidget {
           padding: const EdgeInsets.all(5.0),
           child: SizedBox.square(
             dimension: MediaQuery.of(context).size.width / 5,
-            child: CircularProgressIndicator(
-              
-              value: habitController.completedHabit(habit) /
-                  habitController.totalHabit(habit),
-              strokeCap: StrokeCap.round,
-              strokeWidth: 8,
-              backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+            child: Stack(
+              fit: StackFit.passthrough,
+              alignment: AlignmentDirectional.center,
+              children: [
+                Visibility(
+                  visible: habitController.completedHabit(habit) /
+                          habitController.totalHabit(habit) ==
+                      1,
+                  child: IconButton.filledTonal(
+                    onPressed: () {},
+                    icon: const Icon(Icons.check_circle_rounded),
+                    color: colorthemeContext(context).primary,
+                  ),
+                ),
+                CircularProgressIndicator(
+                  value: habitController.completedHabit(habit) /
+                      habitController.totalHabit(habit),
+                  strokeCap: StrokeCap.round,
+                  strokeWidth: 8,
+                  backgroundColor:
+                      colorthemeContext(context).secondaryContainer,
+                ),
+              ],
             ),
           ),
         ),

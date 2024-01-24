@@ -1,7 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:habitapp/pages/addhabit.page.dart';
+import 'package:habitapp/pages/summary_page.dart';
 import 'package:habitapp/pages/weekly_habit.page.dart';
 import 'package:habitapp/pages/settings.page.dart';
 import 'package:habitapp/pages/todayshabit.page.dart';
@@ -15,7 +17,7 @@ class Homepage extends ConsumerWidget {
   final pageList = <Widget>[
     const TodaysHabitPage(),
     const WeeklyHabitPage(),
-    // const AllHabitsPage(),
+    const SummaryPage(),
     SettingsPage(),
   ];
   final PageController pageController = PageController();
@@ -43,7 +45,7 @@ class Homepage extends ConsumerWidget {
         ),
       ),
       bottomNavigationBar: bottomNavBar(currentPage, ref),
-      floatingActionButton: currentPage == 2
+      floatingActionButton: currentPage == 3
           ? null
           : FloatingActionButton.extended(
               label: const Text("Add Habit"),
@@ -83,11 +85,11 @@ class Homepage extends ConsumerWidget {
           label: 'Weekly',
           // enabled: true,
         ),
-        // NavigationDestination(
-        //   icon: Icon(Icons.line_weight_rounded),
-        //   label: 'All Habits',
-        //   // enabled: true,
-        // ),
+        NavigationDestination(
+          icon: Icon(Icons.grid_view_rounded),
+          label: 'All Habits',
+          // enabled: true,
+        ),
         NavigationDestination(
           icon: Icon(Icons.account_circle_rounded),
           label: 'Profile',
@@ -102,7 +104,7 @@ class Homepage extends ConsumerWidget {
     int currentPage,
   ) {
     return AppBar(
-      title: currentPage == 2
+      title: currentPage == 3
           ? const Text(
               "Settings",
               style: TextStyle(
@@ -116,7 +118,7 @@ class Homepage extends ConsumerWidget {
                 // color: colorthemeContext(context).primary,
               ),
             ),
-      actions: currentPage == 2
+      actions: currentPage == 3
           ? null
           : [
               Padding(

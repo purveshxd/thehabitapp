@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,6 +6,7 @@ import 'package:habitapp/models/habit.model.dart';
 import 'package:habitapp/controller/habit.notifier.dart';
 import 'package:habitapp/style/style.controller.dart';
 import 'package:habitapp/widget/weekly_calendar.dart';
+import 'package:intl/intl.dart';
 
 class HabitDetailsPage extends ConsumerWidget {
   final Habit habit;
@@ -14,31 +14,30 @@ class HabitDetailsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    bool isHabitComplete(String day) {
+      final currentWeek = ref.watch(weekProvider);
+      final firstDateofWeek = currentWeek.first;
 
-    // List<bool> getBoolList() {
-    //   final weekList = giveDateRange();
-    //   // final List<bool> habitCompleteBool = [];
-    //   final savedDate = habit.habitCompletions;
-    //   final list = List.generate(7, (index) => false);
-    //   final List<DateTime> listDate = List.generate(7, (index) {
-    //     return savedDate ? DateTime(1997) : savedDate[index];
-    //   });
-    //   for (var i = 0; i < 7; i++) {
-    //     if (DateTime(listDate[i].year, listDate[i].month, listDate[i].day) ==
-    //         DateTime(weekList[i].year, weekList[i].month, weekList[i].day)) {
-    //       // habitCompleteBool.add(true);
-    //       list.removeAt(i);
-    //       list.insert(i, true);
-    //       debugPrint("TRUE");
-    //       // return true;
-    //     }
-    //     // return false;
-    //   }
+      final dateList = habit.habitCompletions.where((element) {
+        if (DateTime(element.year, element.month, element.day) ==
+                DateTime(firstDateofWeek.year, firstDateofWeek.month,
+                    firstDateofWeek.day) ||
+            DateTime(element.year, element.month, element.day).isAfter(
+              DateTime(firstDateofWeek.year, firstDateofWeek.month,
+                  firstDateofWeek.day),
+            )) {
+          return true;
+        } else {
+          return false;
+        }
+      }).toList();
+      final List<String> daysList = dateList.map((date) {
+        final formattedDate = DateFormat('E').format(date).toLowerCase();
+        return formattedDate;
+      }).toList();
 
-    //   return list;
-    // }
-
-    // final List<bool> listBool = getBoolList();
+      return daysList.contains(day);
+    }
 
     dateMapFunction() {
       Map<DateTime, int> dateDone = {};
@@ -130,7 +129,7 @@ class HabitDetailsPage extends ConsumerWidget {
                         tileColor: colorthemeContext(context).tertiaryContainer,
                         title: const Text("Reminder"),
                         trailing: const Icon(Icons.notifications_rounded),
-                        subtitle: Text(startDateFormat(habit.habitCreated)),
+                        subtitle: Text(TimeOfDay.now().format(context)),
                       ),
                     ),
                   ),
@@ -180,7 +179,9 @@ class HabitDetailsPage extends ConsumerWidget {
                                   // backgroundColor: listBool[i]
                                   //     ? Colors.green
                                   backgroundColor:
-                                      colorthemeContext(context).primary,
+                                      isHabitComplete(Days.values[i].name)
+                                          ? Colors.green
+                                          : colorthemeContext(context).primary,
                                   shape: const StadiumBorder()),
                               onPressed: () {},
                               icon: Text(
@@ -212,26 +213,38 @@ class HabitDetailsPage extends ConsumerWidget {
                   ],
                 ),
               ),
-              HeatMap(
-                startDate: habit.habitCreated,
-                endDate: ref.watch(weekProvider).last,
-                colorMode: ColorMode.color,
-                showText: true,
-                textColor: colorthemeContext(context).onErrorContainer,
-                size: 25,
-                datasets: dateMapFunction(),
-                scrollable: true,
-
-                colorsets: {
-                  1: Colors.green.shade600,
-                },
-                defaultColor: colorthemeContext(context).errorContainer,
-                showColorTip: false,
-                
-                onClick: (value) {
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text(value.toString())));
-                },
+              Container(
+                margin: const EdgeInsets.only(top: 10),
+                padding: const EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF0D1117),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Row(
+                  children: [
+                    Flexible(
+                      child: HeatMap(
+                        startDate: habit.habitCreated,
+                        endDate: ref.watch(weekProvider).last,
+                        colorMode: ColorMode.color,
+                        // showText: true,
+                        textColor: colorthemeContext(context).surfaceVariant,
+                        size: 25,
+                        datasets: dateMapFunction(),
+                        scrollable: true,
+                        colorsets: const {
+                          1: Color(0xFF3FB950),
+                        },
+                        defaultColor: const Color(0xFF161B22),
+                        showColorTip: false,
+                        onClick: (value) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(value.toString())));
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               )
             ],
           ),

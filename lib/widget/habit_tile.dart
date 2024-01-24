@@ -63,34 +63,34 @@ class HabitTile extends ConsumerWidget {
             flex: 5,
             child: FilledButton.tonal(
               onPressed: () {
-                debugPrint('Loading habit');
-                // navigates to a details page of habit
-                showDialog(
-                  context: context,
-                  builder: (context) => const Dialog(
-                    child: Padding(
-                      padding: EdgeInsets.all(20.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          CircularProgressIndicator(),
-                          SizedBox(width: 25),
-                          Text("Loading habit...")
-                        ],
-                      ),
-                    ),
-                  ),
-                );
+                // debugPrint('Loading habit');
+                // // navigates to a details page of habit
+                // showDialog(
+                //   context: context,
+                //   builder: (context) => const Dialog(
+                //     child: Padding(
+                //       padding: EdgeInsets.all(20.0),
+                //       child: Row(
+                //         mainAxisSize: MainAxisSize.min,
+                //         children: [
+                //           CircularProgressIndicator(),
+                //           SizedBox(width: 25),
+                //           Text("Loading habit...")
+                //         ],
+                //       ),
+                //     ),
+                //   ),
+                // );
 
-                Future.delayed(const Duration(milliseconds: 500), () {
-                  Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => HabitDetailsPage(habit: habit),
-                    ),
-                  );
-                });
+                // Future.delayed(const Duration(milliseconds: 500), () {
+                //   Navigator.pop(context);
+                //   Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //       builder: (context) => HabitDetailsPage(habit: habit),
+                //     ),
+                //   );
+                // });
               },
               style: FilledButton.styleFrom(
                 backgroundColor: isWeeklyTile

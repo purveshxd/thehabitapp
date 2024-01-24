@@ -136,6 +136,10 @@ class _AddHabitPageState extends ConsumerState<AddHabitPage> {
                   ref
                       .watch(switchValueProvider.notifier)
                       .update((state) => false);
+
+                  ref
+                      .watch(timeOfDayProvider.notifier)
+                      .update((state) => TimeOfDay.now());
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
