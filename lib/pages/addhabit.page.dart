@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitapp/models/habit.model.dart';
 import 'package:habitapp/controller/habit.notifier.dart';
-import 'package:habitapp/style/style.controller.dart';
 import 'package:habitapp/widget/days_select_widget.dart';
 import 'package:habitapp/widget/submit_button.dart';
 import 'package:habitapp/widget/text_field.widget.dart';
@@ -20,13 +19,11 @@ class AddHabitPage extends ConsumerStatefulWidget {
 class _AddHabitPageState extends ConsumerState<AddHabitPage> {
   // habit name controller
   final TextEditingController habitNameController = TextEditingController();
-
+  //
   final selectedDays = [Days.mon];
 
-  // final switchValue = false;
   @override
   Widget build(BuildContext context) {
-    // List<Days> selectedDays = ref.watch(selectedDaysProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -47,6 +44,53 @@ class _AddHabitPageState extends ConsumerState<AddHabitPage> {
                 hintText: "Habit Name"),
           ),
 
+          // set notification Time
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //     children: [
+          //       const Text(
+          //         "Reminder Time",
+          //         style: TextStyle(
+          //           fontWeight: FontWeight.bold,
+          //           fontSize: 18,
+          //         ),
+          //       ),
+          //       IconButton(
+          //           onPressed: () {
+          //             showDialog(
+          //               context: context,
+          //               builder: (context) => const Dialog(
+          //                 alignment: Alignment.topCenter,
+          //                 // shape: StadiumBorder(),
+          //                 child: Padding(
+          //                   padding: EdgeInsets.all(25.0),
+          //                   child: Text(
+          //                       "Send's notification to remind you about the habit on selected time"),
+          //                 ),
+          //               ),
+          //             );
+          //           },
+          //           icon: const Icon(Icons.info_rounded)),
+          //       const Spacer(),
+          //       ActionChip(
+          //         label: Text(ref.watch(timeOfDayProvider).format(context)),
+          //         shape: const StadiumBorder(),
+          //         side: BorderSide.none,
+          //         backgroundColor: colorthemeContext(context).primaryContainer,
+          //         onPressed: () {
+          //           showTimePicker(
+          //             context: context,
+          //             initialTime: ref.watch(timeOfDayProvider),
+          //           ).then((value) => ref
+          //               .watch(timeOfDayProvider.notifier)
+          //               .update((state) => value!));
+          //         },
+          //       )
+          //     ],
+          //   ),
+          // ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
             child: Row(
@@ -79,38 +123,6 @@ class _AddHabitPageState extends ConsumerState<AddHabitPage> {
               ],
             ),
           ),
-          // set notification Time
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  "Select Time",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
-                ),
-
-                // toggle all days selection
-                ActionChip(
-                  label: Text(ref.watch(timeOfDayProvider).format(context)),
-                  shape: const StadiumBorder(),
-                  side: BorderSide.none,
-                  backgroundColor: colorthemeContext(context).primaryContainer,
-                  onPressed: () {
-                    showTimePicker(
-                      context: context,
-                      initialTime: ref.watch(timeOfDayProvider),
-                    ).then((value) => ref
-                        .watch(timeOfDayProvider.notifier)
-                        .update((state) => value!));
-                  },
-                )
-              ],
-            ),
-          ),
 
 // weekday selection widget
           DaysSelectWidget(
@@ -126,6 +138,7 @@ class _AddHabitPageState extends ConsumerState<AddHabitPage> {
                 if (habitNameController.text.trim().isNotEmpty) {
                   ref.watch(habitStateNotifierProvider.notifier).addHabit(
                         Habit(
+                          // notificationTime: ref.watch(timeOfDayProvider),
                           habitName: habitNameController.text.trim(),
                           days: selectedDays,
                           habitCreated: DateTime.now(),

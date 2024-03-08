@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitapp/models/habit.model.dart';
-import 'package:habitapp/pages/habitdetails.page.dart';
 import 'package:habitapp/style/style.controller.dart';
 import 'package:habitapp/widget/weekly_calendar.dart';
 import 'package:intl/intl.dart';

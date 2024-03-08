@@ -1,14 +1,10 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitapp/controller/habit.notifier.dart';
-import 'package:habitapp/localStorage/habit_storage.dart';
-import 'package:habitapp/localStorage/user_storage.dart';
 import 'package:habitapp/style/style.controller.dart';
 import 'package:habitapp/widget/headline.widget.dart';
-import 'package:habitapp/widget/weekly_calendar.dart';
 
 class SummaryPage extends ConsumerWidget {
   const SummaryPage({super.key});
@@ -76,7 +72,7 @@ class SummaryPage extends ConsumerWidget {
               Flexible(
                 child: HeatMap(
                   startDate: startDate(),
-                  // endDate: ref.watch(weekProvider).last,
+                  showText: false,
                   colorMode: ColorMode.opacity,
                   textColor: checkBrightness() ? Colors.black : Colors.white,
                   size: 27,

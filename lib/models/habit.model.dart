@@ -22,15 +22,17 @@ class Habit {
   final List<DateTime> habitCompletions;
   @HiveField(5)
   final DateTime habitCreated;
+  // @HiveField(6)
+  // final DateTime notificationTime;
   Habit({
     required this.habitName,
     required this.habitCreated,
     required this.days,
     this.isCompleted = false,
     required this.habitCompletions,
+    // required this.notificationTime,
     String? id,
   }) : id = id ?? uuid.v4();
-  // final DateTime dateCreated = DateTime.now();
 
   Habit copyWith({
     String? habitName,
@@ -38,8 +40,10 @@ class Habit {
     bool? isCompleted,
     String? id,
     List<DateTime>? habitCompletions,
+    // DateTime? notificationTime,
   }) {
     return Habit(
+      // notificationTime: notificationTime ?? this.notificationTime,
       habitCreated: habitCreated,
       habitCompletions: habitCompletions ?? this.habitCompletions,
       habitName: habitName ?? this.habitName,
@@ -59,6 +63,7 @@ class Habit {
 
   factory Habit.fromMap(Map<String, dynamic> map) {
     return Habit(
+      // notificationTime: map['notificationTime'] as DateTime,
       habitCreated: map['habitCreated'] as DateTime,
       habitCompletions: map['habitCompletions'] as List<DateTime>,
       habitName: map['habitName'] as String,

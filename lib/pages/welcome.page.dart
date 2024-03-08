@@ -67,19 +67,19 @@ class OnboardingScreen extends ConsumerWidget {
                             color: colorthemeContext(context).primary,
                           )),
                       const SizedBox(height: 5),
-                      // Text(
-                      //   "/kʌɪzn,kʌɪzɛn/",
-                      //   style: GoogleFonts.poppins(
-                      //       fontSize: Theme.of(context)
-                      //           .textTheme
-                      //           .headlineSmall!
-                      //           .fontSize,
-                      //       color: colorthemeContext(context).secondary),
-                      //   // Theme.of(context).textTheme.headlineSmall!.copyWith(
-                      //   //       color: colorthemeContext(context).secondary,
-                      //   //     ),
-                      // ),
-                      // const SizedBox(height: 5),
+                      Text(
+                        "/ˈkaɪ.zen/",
+                        style: GoogleFonts.monda(
+                            fontSize: Theme.of(context)
+                                .textTheme
+                                .headlineSmall!
+                                .fontSize,
+                            color: colorthemeContext(context).secondary),
+                        // Theme.of(context).textTheme.headlineSmall!.copyWith(
+                        //       color: colorthemeContext(context).secondary,
+                        //     ),
+                      ),
+                      const SizedBox(height: 5),
                       Text(
                         "A Japanese business philosophy of continuous improvement of working practices, personal efficiency, etc.",
                         style: GoogleFonts.poppins(

@@ -21,6 +21,7 @@ class HabitStorage {
   void createInitialData() {
     habitList = [
       Habit(
+        // notificationTime: const TimeOfDay(hour: 11, minute: 0),
         habitName: "This is Kaizen, a habit tracker app",
         days: Days.values,
         isCompleted: false,
@@ -38,12 +39,24 @@ class HabitStorage {
         ],
       ),
       Habit(
+        // notificationTime: const TimeOfDay(hour: 11, minute: 0),
         habitCreated: DateTime(2023, 12, 5),
         habitCompletions: [
           DateTime(2024, 01, 19),
           DateTime(2024, 01, 22),
         ],
-        habitName: "Example habit, try to tap on the tick mark",
+        habitName: "Try to tap on the tick mark",
+        days: Days.values,
+        isCompleted: false,
+      ),
+      Habit(
+        // notificationTime: const TimeOfDay(hour: 11, minute: 0),
+        habitCreated: DateTime(2023, 12, 5),
+        habitCompletions: [
+          DateTime(2024, 01, 19),
+          DateTime(2024, 01, 22),
+        ],
+        habitName: "Try adding new Habit",
         days: Days.values,
         isCompleted: false,
       ),

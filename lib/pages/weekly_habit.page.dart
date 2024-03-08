@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitapp/models/habit.model.dart';
 import 'package:habitapp/controller/habit.notifier.dart';
+import 'package:habitapp/style/style.controller.dart';
 import 'package:habitapp/widget/habit_tile.dart';
 import 'package:habitapp/widget/headline.widget.dart';
 import 'package:habitapp/widget/weekly_calendar.dart';
@@ -19,6 +20,7 @@ class WeeklyHabitPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
     bool dayHabit(Habit habit, Days days) {
       return habit.days.contains(days);
     }
@@ -44,7 +46,14 @@ class WeeklyHabitPage extends ConsumerWidget {
         //   ],
         // ),
         // const SizedBox(height: 10),
-        const Divider(thickness: 2),
+        // const Divider(thickness: 2),
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+        //   mainAxisSize: MainAxisSize.max,
+        //   children: [
+        //     for (var element in names) buildChip(context, label: element)
+        //   ],
+        // ),
         Flexible(
           child: ListView.builder(
               physics: const BouncingScrollPhysics(),
@@ -63,6 +72,18 @@ class WeeklyHabitPage extends ConsumerWidget {
               }),
         ),
       ],
+    );
+  }
+
+  Widget buildChip(context, {required String label}) {
+    return ActionChip(
+      label: Text(label),
+      side: BorderSide.none,
+      shape: const StadiumBorder(),
+      backgroundColor: colorthemeContext(context).secondaryContainer,
+      onPressed: () {
+        debugPrint(label);
+      },
     );
   }
 }

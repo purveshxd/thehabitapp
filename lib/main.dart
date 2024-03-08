@@ -4,8 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:habitapp/models/habit.model.dart';
 import 'package:habitapp/models/user_data.model.dart';
 import 'package:habitapp/pages/homepage.dart';
-import 'package:habitapp/pages/welcome.page.dart';
-import 'package:habitapp/style/style.controller.dart';
+import 'pages/welcome.page.dart';
+import 'style/style.controller.dart';
 import 'package:hive_flutter/adapters.dart';
 
 var preDate = DateTime(1977);
